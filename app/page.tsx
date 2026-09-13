@@ -2,12 +2,18 @@ import { Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
 
 async function getServerStatus() {
   try {
-    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { next: { revalidate: 10 } });
+    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { 
+      cache: "no-store" // Garante que não pega dados antigos em cache
+    });
     const data = await res.json();
-    return {
-      online: data.online ? data.players.online : 0,
-      max: data.online ? data.players.max : 2000,
-    };
+    
+    if (data && data.online) {
+      return {
+        online: data.players.online,
+        max: data.players.max || 2000,
+      };
+    }
+    return { online: 0, max: 2000 };
   } catch (error) {
     return { online: 0, max: 2000 };
   }
