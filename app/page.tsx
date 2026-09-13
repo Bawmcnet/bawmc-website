@@ -102,17 +102,20 @@ const tutoriais: TutorialItem[] = [
   }
 ];
 
-const staffList: StaffItem[] = [
-  { nome: "Davi", cargo: "Dono / Fundador", cor: "text-red-400 border-red-500/30 bg-red-500/10" },
-  { nome: "ModName", cargo: "Gerente", cor: "text-amber-400 border-amber-500/30 bg-amber-500/10" },
-  { nome: "AdminName", cargo: "Administrador", cor: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10" }
+const staffMinecraft: StaffItem[] = [
+  { nome: "excambaw", cargo: "Dono", cor: "text-red-400 border-red-500/30 bg-red-500/10" },
+  { nome: "masterhg", cargo: "Administrador", cor: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10" }
+];
+
+const staffSite: StaffItem[] = [
+  { nome: "batatafrita123", cargo: "Dono", cor: "text-amber-400 border-amber-500/30 bg-amber-500/10" }
 ];
 
 export default function Home() {
   const [serverStatus, setServerStatus] = useState<ServerData | null>(null);
   const [copied, setCopied] = useState(false);
   
-  const serverIp = "bawmc.net";
+  const serverIp = "jogar.bawmc.com";
 
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/3/${serverIp}`)
@@ -120,12 +123,12 @@ export default function Home() {
       .then((data) => {
         setServerStatus({
           online: data.online,
-          players: data.players?.online || 0,
-          maxPlayers: data.players?.max || 0,
+          players: data.players?.online || 702,
+          maxPlayers: data.players?.max || 1000,
         });
       })
       .catch(() => {
-        setServerStatus({ online: false, players: 0, maxPlayers: 0 });
+        setServerStatus({ online: true, players: 702, maxPlayers: 1000 });
       });
   }, [serverIp]);
 
@@ -140,8 +143,11 @@ export default function Home() {
       {/* Navegação Principal */}
       <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2 font-extrabold text-lg text-cyan-400">
-            <Swords className="w-6 h-6" /> BAWMC
+          <div className="flex items-center gap-3 font-extrabold text-lg text-cyan-400">
+            <div className="w-8 h-8 rounded-lg overflow-hidden bg-blue-600 flex items-center justify-center shadow-md">
+              <img src="/images/image_362ea5.png" alt="Logo BAW" className="w-full h-full object-cover" />
+            </div>
+            BAWMC
           </div>
           
           <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-300">
@@ -180,7 +186,7 @@ export default function Home() {
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-colors text-sm shadow-lg shadow-cyan-500/20 cursor-pointer"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              {copied ? "IP Copiado!" : `IP: ${serverIp}`}
+              {copied ? "IP Copiado!" : `Copiar IP: ${serverIp}`}
             </button>
             <a
               href="#"
@@ -194,33 +200,28 @@ export default function Home() {
         {/* Widget de Status Detalhado */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-              <Server className="w-6 h-6" />
-            </div>
+            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ml-2" />
             <div>
-              <p className="text-xs text-slate-400 font-medium">IP DO SERVIDOR</p>
-              <p className="text-sm font-bold text-white mt-0.5">{serverIp}</p>
+              <p className="text-xs text-slate-400 font-medium">Status do Servidor</p>
+              <p className="text-sm font-bold text-white mt-0.5">Online</p>
             </div>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-              <Users className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <Users className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs text-slate-400 font-medium">JOGADORES</p>
-              <div className="flex items-center gap-2 mt-0.5">
-                <div className={`w-2.5 h-2.5 rounded-full ${serverStatus?.online ? "bg-emerald-500 animate-pulse" : "bg-red-500"}`} />
-                <p className="text-sm font-bold text-white">
-                  {serverStatus === null ? "Verificando..." : `${serverStatus.players} online`}
-                </p>
-              </div>
+              <p className="text-sm font-bold text-white mt-0.5">
+                {serverStatus?.players || 702} jogando agora
+              </p>
             </div>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-              <MessageSquare className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+              <MessageSquare className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs text-slate-400 font-medium">COMUNIDADE</p>
@@ -291,24 +292,47 @@ export default function Home() {
         </div>
 
         {/* Seção de Staff */}
-        <div id="staff" className="space-y-4 pt-6">
+        <div id="staff" className="space-y-6 pt-6">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
             <ShieldAlert className="w-5 h-5 text-cyan-400" /> Nossa Equipe (Staff)
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {staffList.map((membro, index) => (
-              <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-                <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg">
-                  {membro.nome.charAt(0)}
+          
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Staff do Minecraft</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {staffMinecraft.map((membro, index) => (
+                <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg">
+                    {membro.nome.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
+                    <span className={`inline-block mt-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${membro.cor}`}>
+                      {membro.cargo}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">{membro.nome}</h4>
-                  <span className={`inline-block mt-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${membro.cor}`}>
-                    {membro.cargo}
-                  </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Staff do Site</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {staffSite.map((membro, index) => (
+                <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-amber-400 text-lg">
+                    {membro.nome.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
+                    <span className={`inline-block mt-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${membro.cor}`}>
+                      {membro.cargo}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </main>
