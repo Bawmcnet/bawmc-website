@@ -63,9 +63,9 @@ export default async function Home() {
       textCol: "text-emerald-400"
     },
     {
-      nome: "Cosméticos",
-      desc: "Personalize seu visual no servidor com tags, capas, partículas e itens exclusivos.",
-      emoji: "👕",
+      nome: "Loja",
+      desc: "Loja oficial do BAWMC",
+      emoji: "🛒",
       border: "border-purple-500/40 hover:border-purple-500",
       bg: "bg-purple-500/10",
       textCol: "text-purple-400"
@@ -164,7 +164,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Modos de Jogo com Estilo da Loja */}
+      {/* Modos de Jogo */}
       <section id="modos" className="max-w-6xl mx-auto p-8 w-full">
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <Swords className="text-cyan-400" /> Modos & Categorias
@@ -182,7 +182,7 @@ export default async function Home() {
                 <p className="text-slate-400 text-sm mb-6">{modo.desc}</p>
               </div>
               <a 
-                href={storeLink} 
+                href={modo.nome === "Loja" ? storeLink : storeLink} 
                 target="_blank" 
                 className="bg-white text-slate-950 font-bold py-2.5 px-4 rounded-xl text-center text-sm hover:bg-cyan-400 transition-colors"
               >
