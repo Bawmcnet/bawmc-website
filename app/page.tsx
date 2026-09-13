@@ -2,6 +2,7 @@
 
 import { Users, Server, Shield, MessageSquare, Swords, ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
 
   const modos = [
     {
+      id: "survival",
       nome: "Survival",
       desc: "O clássico survival com economia robusta, proteção de terrenos e jogabilidade equilibrada.",
       emoji: "⛏️",
@@ -38,6 +40,7 @@ export default function Home() {
       isStore: false
     },
     {
+      id: "semi-anarquia",
       nome: "Semi-Anarquia",
       desc: "Liberdade quase total para construir, destruir e sobreviver com economia ativa e poucas regras.",
       emoji: "🧨",
@@ -47,6 +50,7 @@ export default function Home() {
       isStore: false
     },
     {
+      id: "lifesteal",
       nome: "Lifesteal (Novo)",
       desc: "Cada abate te fortalece: a cada kill, você ganha um novo coração e ganha economia. Vem testar!",
       emoji: "❤️",
@@ -56,6 +60,7 @@ export default function Home() {
       isStore: false
     },
     {
+      id: "practice-e-crystalpvp",
       nome: "Practice e CrystalPvP",
       desc: "Treine suas habilidades de combate, cristais e domine as arenas de duelo intensas.",
       emoji: "🔮",
@@ -65,6 +70,7 @@ export default function Home() {
       isStore: false
     },
     {
+      id: "eventos",
       nome: "Eventos",
       desc: "Participe de eventos eletrizantes organizados pela staff com prêmios imperdíveis.",
       emoji: "🎉",
@@ -74,6 +80,7 @@ export default function Home() {
       isStore: false
     },
     {
+      id: "loja",
       nome: "Loja",
       desc: "Loja oficial do BAWMC",
       emoji: "🛒",
@@ -308,9 +315,12 @@ export default function Home() {
                   Ir para Loja →
                 </a>
               ) : (
-                <div className="bg-slate-950 border border-slate-800 text-slate-400 font-medium py-2.5 px-4 rounded-xl text-center text-sm">
+                <Link 
+                  href={`/modo/${modo.id}`}
+                  className="bg-slate-950 border border-slate-800 text-slate-300 font-medium py-2.5 px-4 rounded-xl text-center text-sm hover:border-cyan-500 hover:text-cyan-400 transition-colors block"
+                >
                   Ver informações
-                </div>
+                </Link>
               )}
             </div>
           ))}
