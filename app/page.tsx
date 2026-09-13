@@ -59,7 +59,7 @@ export default function Home() {
             <Users className="w-8 h-8 text-emerald-500" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">128 / 500 Online</p>
+              <p className="font-bold">128 / 2000 Online</p>
             </div>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
