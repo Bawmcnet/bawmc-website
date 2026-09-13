@@ -2,7 +2,7 @@ import { Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
 
 async function getServerStatus() {
   try {
-    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { next: { revalidate: 60 } });
+    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { next: { revalidate: 10 } });
     const data = await res.json();
     return {
       online: data.online ? data.players.online : 0,
