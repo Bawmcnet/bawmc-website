@@ -101,6 +101,17 @@ export default async function Home() {
             <a href="#modos" className="hover:text-cyan-400">Modos</a>
             <a href="#regras" className="hover:text-cyan-400">Regras</a>
             <a href={discordLink} target="_blank" className="hover:text-cyan-400">Discord</a>
+            {/* Link Staff com alerta de Em Breve */}
+            <a 
+              href="#staff" 
+              onClick={(e) => {
+                e.preventDefault();
+                alert("EM BREVE! A lista de administradores estará disponível em breve.");
+              }} 
+              className="hover:text-cyan-400 cursor-pointer"
+            >
+              Staff
+            </a>
             <a href={storeLink} target="_blank" className="bg-cyan-500 text-slate-950 px-4 py-2 rounded-lg font-bold hover:bg-cyan-400 transition-colors flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" /> Loja
             </a>
@@ -182,7 +193,7 @@ export default async function Home() {
                 <p className="text-slate-400 text-sm mb-6">{modo.desc}</p>
               </div>
               <a 
-                href={modo.nome === "Loja" ? storeLink : storeLink} 
+                href={storeLink} 
                 target="_blank" 
                 className="bg-white text-slate-950 font-bold py-2.5 px-4 rounded-xl text-center text-sm hover:bg-cyan-400 transition-colors"
               >
