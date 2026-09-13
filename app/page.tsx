@@ -10,6 +10,7 @@ export default function Home() {
   const storeLink = "https://loja.bawmc.net/";
 
   const [playerStatus, setPlayerStatus] = useState("Carregando...");
+  const [showTerrainModal, setShowTerrainModal] = useState(false);
 
   useEffect(() => {
     fetch("https://api.mcsrvstat.us/3/bawmc.net")
@@ -78,7 +79,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans relative">
       <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <a href="#inicio" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity">
@@ -188,17 +189,25 @@ export default function Home() {
             <div>
               <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-2xl mb-4">🏡</div>
               <h4 className="text-lg font-bold text-emerald-400 mb-2">Proteção de Terrenos</h4>
-              <p className="text-slate-400 text-sm mb-4">
-                Proteja suas construções contra griefing usando as ferramentas de claim do servidor.
+              <p className="text-slate-400 text-sm mb-3">
+                Use <code className="text-cyan-400">/terreno</code> para pegar a pá e o graveto, marque dois cantos opostos. Comece com 500 blocos e gerencie com comandos avançados.
               </p>
             </div>
-            <a 
-              href="https://www.youtube.com/watch?v=TbpLadLuGTE" 
-              target="_blank" 
-              className="text-xs text-cyan-400 hover:underline font-semibold flex items-center gap-1 mt-2"
-            >
-              ▶ Ver vídeo explicativo de terreno
-            </a>
+            <div className="flex flex-col gap-2 mt-2">
+              <button 
+                onClick={() => setShowTerrainModal(true)}
+                className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold py-2 px-3 rounded-lg transition-colors text-center w-full"
+              >
+                Ver mais (Comandos & Guia) ↓
+              </button>
+              <a 
+                href="https://www.youtube.com/watch?v=TbpLadLuGTE" 
+                target="_blank" 
+                className="text-xs text-cyan-400 hover:underline font-semibold flex items-center justify-center gap-1"
+              >
+                ▶ Ver vídeo explicativo
+              </a>
+            </div>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
@@ -215,6 +224,58 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Modal / Detalhes Completos de Terrenos */}
+      {showTerrainModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+            <button 
+              onClick={() => setShowTerrainModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center"
+            >
+              ✕
+            </button>
+            
+            <h3 className="text-2xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
+              🏡 Guia Completo de Proteção de Terrenos
+            </h3>
+            
+            <div className="space-y-4 text-slate-300 text-sm">
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <h4 className="font-bold text-white mb-1">🛠️ Processo de Proteção</h4>
+                <p>Use <code className="text-cyan-400">/terreno</code> para receber a pá de ouro e o graveto. Clique com o botão direito em dois cantos opostos para proteger automaticamente da Bedrock até o limite do céu.</p>
+              </div>
+
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <h4 className="font-bold text-white mb-1">📊 Gerenciamento de Blocos</h4>
+                <p>O comando <code className="text-cyan-400">/blocosprotecao</code> mostra seus blocos disponíveis (início com 500 blocos, aumentando conforme o tempo online). O graveto serve para verificar o dono do terreno.</p>
+              </div>
+
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <h4 className="font-bold text-white mb-1">⚙️ Comandos Avançados & Permissões</h4>
+                <ul className="space-y-1.5 mt-2">
+                  <li>• <code className="text-cyan-400">/permitir &lt;nick&gt;</code>: Concede acesso ao terreno.</li>
+                  <li>• <code className="text-cyan-400">/proibir &lt;nick&gt;</code>: Remove o acesso do jogador.</li>
+                  <li>• <code className="text-cyan-400">/terrenofilho</code>: Cria sub-áreas dentro do terreno principal.</li>
+                  <li>• <code className="text-cyan-400">/terrenoexplosao</code>: Habilita TNT e Wither na área.</li>
+                  <li>• <code className="text-cyan-400">/permitirbau #publico</code>: Permite acesso livre a baús (farms).</li>
+                  <li>• <code className="text-cyan-400">/transferirterreno &lt;nick&gt;</code>: Passa a posse para outro jogador.</li>
+                  <li>• <code className="text-cyan-400">/preso</code>: Teletransporta para fora se ficar preso.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button 
+                onClick={() => setShowTerrainModal(false)}
+                className="bg-cyan-500 text-slate-950 font-bold px-6 py-2.5 rounded-xl hover:bg-cyan-400 transition-colors"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section id="modos" className="max-w-6xl mx-auto p-8 w-full border-t border-slate-800">
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
