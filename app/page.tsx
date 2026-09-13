@@ -1,0 +1,110 @@
+"use client";
+
+import { useState } from "react";
+import { Copy, Check, Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
+
+export default function Home() {
+  const [copied, setCopied] = useState(false);
+  const serverIp = "bawmc.net";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(serverIp);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
+      {/* Menu Superior */}
+      <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-black text-emerald-500 tracking-wider">BAWMC</h1>
+          <div className="flex gap-6 text-sm font-semibold text-slate-300">
+            <a href="#inicio" className="hover:text-emerald-400">Início</a>
+            <a href="#modos" className="hover:text-emerald-400">Modos</a>
+            <a href="#regras" className="hover:text-emerald-400">Regras</a>
+            <a href="https://discord.gg" target="_blank" className="hover:text-emerald-400">Discord</a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="inicio" className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-slate-900 to-slate-950">
+        <h2 className="text-5xl md:text-7xl font-black mb-4">
+          BEM-VINDO AO <span className="text-emerald-500">BAWMC</span>
+        </h2>
+        <p className="text-lg text-slate-400 max-w-xl mb-8">
+          Sua melhor experiência no Minecraft Survival e PvP. Entre agora e faça parte da nossa comunidade!
+        </p>
+
+        {/* Botão de Copiar IP */}
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105 mb-12"
+        >
+          {copied ? <Check className="w-6 h-6" /> : <Copy className="w-6 h-6" />}
+          {copied ? "IP COPIADO!" : "JOGAR AGORA"}
+        </button>
+
+        {/* Status do Servidor */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full">
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+            <Server className="w-8 h-8 text-emerald-500" />
+            <div className="text-left">
+              <p className="text-xs text-slate-400 uppercase font-semibold">IP do Servidor</p>
+              <p className="font-bold">{serverIp}</p>
+            </div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+            <Users className="w-8 h-8 text-emerald-500" />
+            <div className="text-left">
+              <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
+              <p className="font-bold">128 / 500 Online</p>
+            </div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+            <MessageSquare className="w-8 h-8 text-emerald-500" />
+            <div className="text-left">
+              <p className="text-xs text-slate-400 uppercase font-semibold">Comunidade</p>
+              <p className="font-bold">Discord Ativo</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modos de Jogo */}
+      <section id="modos" className="max-w-6xl mx-auto p-8 w-full">
+        <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
+          <Swords className="text-emerald-500" /> Modos de Jogo
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Crystal PvP</h4>
+            <p className="text-slate-400 text-sm">Combates intensos focados em mecânicas com End Crystals e terrenos competitivos.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Survival SMP</h4>
+            <p className="text-slate-400 text-sm">Modo sobrevivência com economia equilibrada, proteção de terrenos e eventos diários.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Regras Rápidas */}
+      <section id="regras" className="max-w-6xl mx-auto p-8 w-full border-t border-slate-800">
+        <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
+          <Shield className="text-emerald-500" /> Regras Principais
+        </h3>
+        <ul className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-3 text-slate-300">
+          <li>• Proibido o uso de hacks, clientes modificados ou cheats.</li>
+          <li>• Respeite todos os jogadores e membros da equipe no chat.</li>
+          <li>• Proibido o aproveitamento de bugs ou exploits.</li>
+        </ul>
+      </section>
+
+      {/* Rodapé */}
+      <footer className="bg-slate-900 border-t border-slate-800 py-6 text-center text-sm text-slate-500">
+        © {new Date().getFullYear()} BAWMC. Todos os direitos reservados.
+      </footer>
+    </div>
+  );
+}
