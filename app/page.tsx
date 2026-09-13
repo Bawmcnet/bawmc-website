@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Server, Users, Copy, Check, Swords, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, MessageSquare } from "lucide-react";
+import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, MessageSquare } from "lucide-react";
 
 interface ServerData {
   online: boolean;
@@ -155,12 +155,14 @@ export default function Home() {
             <a href="#tutoriais" className="hover:text-cyan-400 transition-colors">Tutoriais</a>
             <a href="#modos" className="hover:text-cyan-400 transition-colors">Modos</a>
             <a href="#regras" className="hover:text-cyan-400 transition-colors">Regras</a>
-            <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" className="hover:text-cyan-400 transition-colors">Discord</a>
+            <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Discord</a>
             <a href="#staff" className="hover:text-cyan-400 transition-colors">Staff</a>
           </div>
 
           <a 
-            href="#" 
+            href="https://loja.bawmc.net/" 
+            target="_blank" 
+            rel="noopener noreferrer"
             className="flex items-center gap-2 bg-cyan-500 text-slate-950 font-bold px-4 py-2 rounded-xl hover:bg-cyan-400 transition-colors text-sm shadow-lg shadow-cyan-500/20"
           >
             <ShoppingBag className="w-4 h-4" /> Loja
@@ -169,8 +171,8 @@ export default function Home() {
       </nav>
 
       <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-12">
-        {/* Hero Section */}
-        <div className="text-center space-y-6 py-8">
+        {/* Banner Central Principal */}
+        <div className="text-center space-y-6 py-4">
           <div className="flex justify-center mb-2">
             <div className="bg-cyan-500/10 border border-cyan-500/30 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3">
               <span className="text-3xl font-extrabold tracking-widest text-cyan-400">BAWMC</span>
@@ -180,7 +182,7 @@ export default function Home() {
           <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
             O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana. Entre agora e venha fazer parte dessa história!
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
             <button
               onClick={handleCopyIp}
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-colors text-sm shadow-lg shadow-cyan-500/20 cursor-pointer"
@@ -189,7 +191,9 @@ export default function Home() {
               {copied ? "IP Copiado!" : `Copiar IP: ${serverIp}`}
             </button>
             <a
-              href="#"
+              href="https://loja.bawmc.net/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-cyan-400 font-bold px-6 py-3 rounded-xl transition-colors text-sm"
             >
               <ShoppingBag className="w-4 h-4" /> Acessar Loja
@@ -197,7 +201,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Widget de Status Detalhado */}
+        {/* Widgets de Status */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
             <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ml-2" />
@@ -225,7 +229,7 @@ export default function Home() {
             </div>
             <div>
               <p className="text-xs text-slate-400 font-medium">COMUNIDADE</p>
-              <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" className="text-sm font-bold text-cyan-400 hover:underline mt-0.5 block">
+              <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-cyan-400 hover:underline mt-0.5 block">
                 Entrar no Discord
               </a>
             </div>
@@ -233,7 +237,7 @@ export default function Home() {
         </div>
 
         {/* Grade de Modos */}
-        <div id="modos" className="space-y-4 pt-6">
+        <div id="modos" className="space-y-4 pt-2">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
             <Compass className="w-5 h-5 text-cyan-400" /> Modos de Jogo
           </h3>
@@ -263,8 +267,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Seção de Tutoriais / Primeiros Passos */}
-        <div id="tutoriais" className="space-y-4 pt-6">
+        {/* Seção de Tutoriais (Estilo Original Limpo) */}
+        <div id="tutoriais" className="space-y-4 pt-4">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
             <BookOpen className="w-5 h-5 text-cyan-400" /> Tutoriais para Iniciantes
           </h3>
@@ -272,19 +276,12 @@ export default function Home() {
             {tutoriais.map((tut, index) => {
               const IconComponent = tut.icon;
               return (
-                <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <h4 className="font-bold text-white text-base">{tut.titulo}</h4>
-                    <p className="text-slate-400 text-xs leading-relaxed">{tut.desc}</p>
+                <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <IconComponent className="w-5 h-5" />
                   </div>
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-                    <span className="text-[11px] text-cyan-400 hover:underline cursor-pointer font-semibold">
-                      Ver mais (Comandos & Guia) ↓
-                    </span>
-                  </div>
+                  <h4 className="font-bold text-white text-base">{tut.titulo}</h4>
+                  <p className="text-slate-400 text-xs leading-relaxed">{tut.desc}</p>
                 </div>
               );
             })}
@@ -292,7 +289,7 @@ export default function Home() {
         </div>
 
         {/* Seção de Staff */}
-        <div id="staff" className="space-y-6 pt-6">
+        <div id="staff" className="space-y-6 pt-4">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
             <ShieldAlert className="w-5 h-5 text-cyan-400" /> Nossa Equipe (Staff)
           </h3>
