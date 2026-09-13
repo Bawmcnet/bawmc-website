@@ -94,6 +94,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-6 text-sm font-semibold text-slate-300">
             <a href="#inicio" className="hover:text-cyan-400">Início</a>
+            <a href="#tutoriais" className="hover:text-cyan-400">Tutoriais</a>
             <a href="#modos" className="hover:text-cyan-400">Modos</a>
             <a href="#regras" className="hover:text-cyan-400">Regras</a>
             <a href={discordLink} target="_blank" className="hover:text-cyan-400">Discord</a>
@@ -167,7 +168,31 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="modos" className="max-w-6xl mx-auto p-8 w-full">
+      {/* Tutoriais para Iniciantes */}
+      <section id="tutoriais" className="max-w-6xl mx-auto p-8 w-full border-t border-slate-800">
+        <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
+          📖 Tutoriais para Iniciantes
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+            <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-2xl mb-4">🔑</div>
+            <h4 className="text-lg font-bold text-amber-400 mb-2">Registro de Conta</h4>
+            <p className="text-slate-400 text-sm">Use <code className="bg-slate-950 px-1.5 py-0.5 rounded text-cyan-400">/register senha senha</code> para criar sua conta e <code className="bg-slate-950 px-1.5 py-0.5 rounded text-cyan-400">/login senha</code> ao entrar.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-2xl mb-4">🏡</div>
+            <h4 className="text-lg font-bold text-emerald-400 mb-2">Proteção de Terrenos</h4>
+            <p className="text-slate-400 text-sm">Garanta a segurança das suas construções e itens contra griefing usando as ferramentas de claim do servidor.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+            <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-2xl mb-4">💰</div>
+            <h4 className="text-lg font-bold text-purple-400 mb-2">Economia & Lucro</h4>
+            <p className="text-slate-400 text-sm">Participe de plantações, minere recursos valiosos e venda itens na loja oficial para acumular moedas.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="modos" className="max-w-6xl mx-auto p-8 w-full border-t border-slate-800">
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <Swords className="text-cyan-400" /> Modos & Categorias
         </h3>
