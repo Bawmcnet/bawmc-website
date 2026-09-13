@@ -1,12 +1,30 @@
+"use client";
+
 import { Users, Server, Shield, MessageSquare, Swords, ShoppingBag } from "lucide-react";
 import Image from "next/image";
-
-export const dynamic = "force-dynamic";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const serverIp = "bawmc.net";
   const discordLink = "https://discord.com/servers/bawmc-1317180458978639914";
   const storeLink = "https://loja.bawmc.net/";
+
+  const [playerStatus, setPlayerStatus] = useState("Carregando...");
+
+  useEffect(() => {
+    fetch("https://api.mcsrvstat.us/3/bawmc.net")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.online) {
+          setPlayerStatus(`${data.players.online} / ${data.players.max || 2000} Online`);
+        } else {
+          setPlayerStatus("Servidor Online");
+        }
+      })
+      .catch(() => {
+        setPlayerStatus("Servidor Online");
+      });
+  }, []);
 
   const modos = [
     {
@@ -136,7 +154,7 @@ export default function Home() {
             <Users className="w-8 h-8 text-cyan-400" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">Online 24/7</p>
+              <p className="font-bold">{playerStatus}</p>
             </div>
           </div>
           <a href={discordLink} target="_blank" className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4 hover:border-cyan-500 transition-colors">
