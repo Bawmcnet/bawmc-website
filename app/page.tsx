@@ -4,27 +4,28 @@ import Image from "next/image";
 async function getServerStatus() {
   try {
     const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { 
-      cache: "no-store" 
+      cache: "no-store",
+      next: { revalidate: 0 }
     });
-    const data = await res.json();
     
+    if (!res.ok) return { text: "Servidor Online" };
+    
+    const data = await res.json();
     if (data && data.online) {
       return {
-        text: `${data.players.online} / ${data.players.max || 2000} Online`,
-        isOnline: true
+        text: `${data.players.online} / ${data.players.max || 2000} Online`
       };
     }
-    return { text: "Servidor Online", isOnline: true };
+    return { text: "Servidor Online" };
   } catch (error) {
-    return { text: "Servidor Online", isOnline: true };
+    return { text: "Servidor Online" };
   }
 }
 
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
 
 export default async function Home() {
-  const { text } = await getServerStatus();
+  const status = await getServerStatus();
   const serverIp = "bawmc.net";
   const discordLink = "https://discord.com/servers/bawmc-1317180458978639914";
   const storeLink = "https://loja.bawmc.net/";
@@ -82,7 +83,6 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
-      {/* Menu Superior */}
       <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3 shrink-0">
@@ -101,7 +101,6 @@ export default async function Home() {
             <a href="#modos" className="hover:text-cyan-400">Modos</a>
             <a href="#regras" className="hover:text-cyan-400">Regras</a>
             <a href={discordLink} target="_blank" className="hover:text-cyan-400">Discord</a>
-            {/* Link Staff com alerta de Em Breve */}
             <a 
               href="#staff" 
               onClick={(e) => {
@@ -119,7 +118,6 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Hero Section com Logo Flutuante */}
       <section id="inicio" className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="mb-6 w-full max-w-xl flex justify-center">
           <div className="animate-bounce-slow">
@@ -138,7 +136,6 @@ export default async function Home() {
           O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana. Entre agora e venha fazer parte dessa história!
         </p>
 
-        {/* Botões de Ação (IP e Loja) */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <div className="flex items-center gap-3 bg-cyan-500 text-slate-950 font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-cyan-500/20">
             <span>IP: {serverIp}</span>
@@ -149,7 +146,6 @@ export default async function Home() {
           </a>
         </div>
 
-        {/* Status do Servidor */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full">
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
             <Server className="w-8 h-8 text-cyan-400" />
@@ -162,7 +158,7 @@ export default async function Home() {
             <Users className="w-8 h-8 text-cyan-400" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">{text}</p>
+              <p className="font-bold">{status.text}</p>
             </div>
           </div>
           <a href={discordLink} target="_blank" className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4 hover:border-cyan-500 transition-colors">
@@ -175,7 +171,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Modos de Jogo */}
       <section id="modos" className="max-w-6xl mx-auto p-8 w-full">
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <Swords className="text-cyan-400" /> Modos & Categorias
@@ -204,7 +199,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Regras Rápidas */}
       <section id="regras" className="max-w-6xl mx-auto p-8 w-full border-t border-slate-800">
         <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
           <Shield className="text-cyan-400" /> Regras Principais
@@ -216,7 +210,6 @@ export default async function Home() {
         </ul>
       </section>
 
-      {/* Rodapé */}
       <footer className="bg-slate-900 border-t border-slate-800 py-6 text-center text-sm text-slate-500">
         © {new Date().getFullYear()} BAWMC. Todos os direitos reservados.
       </footer>
