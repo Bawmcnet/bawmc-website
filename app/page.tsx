@@ -34,7 +34,8 @@ export default function Home() {
       emoji: "⛏️",
       border: "border-amber-500/40 hover:border-amber-500",
       bg: "bg-amber-500/10",
-      textCol: "text-amber-400"
+      textCol: "text-amber-400",
+      isStore: false
     },
     {
       nome: "Semi-Anarquia",
@@ -42,7 +43,8 @@ export default function Home() {
       emoji: "🧨",
       border: "border-red-500/40 hover:border-red-500",
       bg: "bg-red-500/10",
-      textCol: "text-red-400"
+      textCol: "text-red-400",
+      isStore: false
     },
     {
       nome: "Lifesteal (Novo)",
@@ -50,7 +52,8 @@ export default function Home() {
       emoji: "❤️",
       border: "border-rose-500/40 hover:border-rose-500",
       bg: "bg-rose-500/10",
-      textCol: "text-rose-400"
+      textCol: "text-rose-400",
+      isStore: false
     },
     {
       nome: "Practice e CrystalPvP",
@@ -58,15 +61,8 @@ export default function Home() {
       emoji: "🔮",
       border: "border-emerald-500/40 hover:border-emerald-500",
       bg: "bg-emerald-500/10",
-      textCol: "text-emerald-400"
-    },
-    {
-      nome: "Loja",
-      desc: "Loja oficial do BAWMC",
-      emoji: "🛒",
-      border: "border-purple-500/40 hover:border-purple-500",
-      bg: "bg-purple-500/10",
-      textCol: "text-purple-400"
+      textCol: "text-emerald-400",
+      isStore: false
     },
     {
       nome: "Eventos",
@@ -74,7 +70,17 @@ export default function Home() {
       emoji: "🎉",
       border: "border-blue-500/40 hover:border-blue-500",
       bg: "bg-blue-500/10",
-      textCol: "text-blue-400"
+      textCol: "text-blue-400",
+      isStore: false
+    },
+    {
+      nome: "Loja",
+      desc: "Loja oficial do BAWMC",
+      emoji: "🛒",
+      border: "border-purple-500/40 hover:border-purple-500",
+      bg: "bg-purple-500/10",
+      textCol: "text-purple-400",
+      isStore: true
     }
   ];
 
@@ -293,13 +299,19 @@ export default function Home() {
                 </div>
                 <p className="text-slate-400 text-sm mb-6">{modo.desc}</p>
               </div>
-              <a 
-                href={storeLink} 
-                target="_blank" 
-                className="bg-white text-slate-950 font-bold py-2.5 px-4 rounded-xl text-center text-sm hover:bg-cyan-400 transition-colors"
-              >
-                Ver produtos →
-              </a>
+              {modo.isStore ? (
+                <a 
+                  href={storeLink} 
+                  target="_blank" 
+                  className="bg-white text-slate-950 font-bold py-2.5 px-4 rounded-xl text-center text-sm hover:bg-cyan-400 transition-colors"
+                >
+                  Ir para Loja →
+                </a>
+              ) : (
+                <div className="bg-slate-950 border border-slate-800 text-slate-400 font-medium py-2.5 px-4 rounded-xl text-center text-sm">
+                  Ver informações
+                </div>
+              )}
             </div>
           ))}
         </div>
