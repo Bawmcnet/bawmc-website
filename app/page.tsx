@@ -1,4 +1,4 @@
-import { Copy, Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
+import { Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
 
 async function getServerStatus() {
   try {
@@ -41,7 +41,7 @@ export default async function Home() {
           Sua melhor experiência no Minecraft Survival e PvP. Entre agora e faça parte da nossa comunidade!
         </p>
 
-        {/* Botão de Copiar IP (Cliente) - Como precisamos de interatividade, podemos isolar ou usar componentes, mas para manter simples com Server Component, vamos exibir o IP claramente */}
+        {/* IP do Servidor */}
         <div className="flex items-center gap-3 bg-emerald-500 text-slate-950 font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-emerald-500/20 mb-12">
           <span>IP: {serverIp}</span>
         </div>
@@ -77,14 +77,30 @@ export default async function Home() {
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <Swords className="text-emerald-500" /> Modos de Jogo
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-emerald-400 mb-2">Crystal PvP</h4>
-            <p className="text-slate-400 text-sm">Combates intensos focados em mecânicas com End Crystals e terrenos competitivos.</p>
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Semi-Anarquia</h4>
+            <p className="text-slate-400 text-sm">Liberdade quase total para construir, destruir e sobreviver com poucas regras.</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-emerald-400 mb-2">Survival SMP</h4>
-            <p className="text-slate-400 text-sm">Modo sobrevivência com economia equilibrada, proteção de terrenos e eventos diários.</p>
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Lifesteal (Novo)</h4>
+            <p className="text-slate-400 text-sm">Cada abate rouba corações do inimigo. Quanto mais você luta, mais forte fica!</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Survival</h4>
+            <p className="text-slate-400 text-sm">O clássico survival com economia, proteção de terrenos e jogabilidade equilibrada.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Practice</h4>
+            <p className="text-slate-400 text-sm">Treine suas habilidades de combate em diferentes cenários e kits variados.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Crystal PvP</h4>
+            <p className="text-slate-400 text-sm">Focado inteiramente no PvP de cristais com arenas de treino dinâmicas.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Eventos</h4>
+            <p className="text-slate-400 text-sm">Eventos especiais organizados pela administração com prêmios exclusivos para os participantes.</p>
           </div>
         </div>
       </section>
