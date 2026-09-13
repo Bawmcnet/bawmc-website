@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, X } from "lucide-react";
+import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, X, MessageSquare } from "lucide-react";
 
 interface ServerData {
   online: boolean;
@@ -24,6 +24,7 @@ interface StaffItem {
   nome: string;
   cargo: string;
   cor: string;
+  foto?: string;
 }
 
 const modos: ModoItem[] = [
@@ -75,7 +76,7 @@ const modos: ModoItem[] = [
 ];
 
 const staffMinecraft: StaffItem[] = [
-  { nome: "excambaw", cargo: "Dono", cor: "text-red-400 border-red-500/30 bg-red-500/10" },
+  { nome: "excambaw", cargo: "Dono", cor: "text-red-400 border-red-500/30 bg-red-500/10", foto: "/E.png" },
   { nome: "masterhg", cargo: "Administrador", cor: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10" }
 ];
 
@@ -88,7 +89,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [modalTerrenosOpen, setModalTerrenosOpen] = useState(false);
   
-  const serverIp = "jogar.bawmc.com";
+  const serverIp = "bawmc.net";
 
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/3/${serverIp}`)
@@ -143,33 +144,79 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-10">
-        {/* Barra Superior Compacta de Status */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-              <div>
-                <p className="text-[11px] text-slate-400 font-medium leading-none">Status do Servidor</p>
-                <p className="text-sm font-bold text-white mt-1 leading-none">Online</p>
-              </div>
+      <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-12">
+        {/* Banner Central Principal com Texto + Imagem logo-hero */}
+        <div className="text-center space-y-6 py-4">
+          <div className="flex justify-center mb-2">
+            <div className="bg-cyan-500/10 border border-cyan-500/30 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3">
+              <span className="text-3xl font-extrabold tracking-widest text-cyan-400">BAWMC</span>
+              <span className="bg-cyan-500 text-slate-950 text-xs font-black px-2 py-0.5 rounded">MC</span>
             </div>
+          </div>
+          <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+            O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana. Entre agora e venha fazer parte dessa história!
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
+            <button
+              onClick={handleCopyIp}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-colors text-sm shadow-lg shadow-cyan-500/20 cursor-pointer"
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? "IP Copiado!" : `Copiar IP: ${serverIp}`}
+            </button>
+            <a
+              href="https://loja.bawmc.net/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-cyan-400 font-bold px-6 py-3 rounded-xl transition-colors text-sm"
+            >
+              <ShoppingBag className="w-4 h-4" /> Acessar Loja
+            </a>
+          </div>
 
-            <div className="h-6 w-[1px] bg-slate-800" />
+          {/* Imagem logo-hero abaixo das informações */}
+          <div className="pt-4 flex justify-center">
+            <img 
+              src="/logo-hero.png" 
+              alt="BAWMC Hero Banner" 
+              className="max-w-full h-auto rounded-2xl shadow-2xl border border-slate-800/60"
+            />
+          </div>
+        </div>
 
-            <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300">
-              <Users className="w-3.5 h-3.5 text-cyan-400" />
-              <span>{serverStatus?.players || 702} jogando agora</span>
+        {/* Widgets de Status */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
+            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ml-2" />
+            <div>
+              <p className="text-xs text-slate-400 font-medium">Status do Servidor</p>
+              <p className="text-sm font-bold text-white mt-0.5">Online</p>
             </div>
           </div>
 
-          <button
-            onClick={handleCopyIp}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition-all text-sm shadow-lg shadow-cyan-500/20 cursor-pointer"
-          >
-            {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            <span>{copied ? "IP Copiado!" : `Copiar IP: ${serverIp}`}</span>
-          </button>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 font-medium">JOGADORES</p>
+              <p className="text-sm font-bold text-white mt-0.5">
+                {serverStatus?.players || 702} jogando agora
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+              <MessageSquare className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 font-medium">COMUNIDADE</p>
+              <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-cyan-400 hover:underline mt-0.5 block">
+                Entrar no Discord
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Grade de Modos */}
@@ -295,8 +342,12 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {staffMinecraft.map((membro, index) => (
                 <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg">
-                    {membro.nome.charAt(0).toUpperCase()}
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg overflow-hidden">
+                    {membro.foto ? (
+                      <img src={membro.foto} alt={membro.nome} className="w-full h-full object-cover" />
+                    ) : (
+                      membro.nome.charAt(0).toUpperCase()
+                    )}
                   </div>
                   <div>
                     <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
@@ -314,8 +365,12 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {staffSite.map((membro, index) => (
                 <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-amber-400 text-lg">
-                    {membro.nome.charAt(0).toUpperCase()}
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-amber-400 text-lg overflow-hidden">
+                    {membro.foto ? (
+                      <img src={membro.foto} alt={membro.nome} className="w-full h-full object-cover" />
+                    ) : (
+                      membro.nome.charAt(0).toUpperCase()
+                    )}
                   </div>
                   <div>
                     <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
@@ -347,7 +402,6 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              {/* Bloco 1 */}
               <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-2">
                 <h4 className="font-bold text-white text-sm flex items-center gap-2">
                   🛠️ Processo de Proteção
@@ -357,7 +411,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Bloco 2 */}
               <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-2">
                 <h4 className="font-bold text-white text-sm flex items-center gap-2">
                   📊 Gerenciamento de Blocos
@@ -367,7 +420,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Bloco 3 */}
               <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-3">
                 <h4 className="font-bold text-white text-sm flex items-center gap-2">
                   ⚙️ Comandos Avançados & Permissões
