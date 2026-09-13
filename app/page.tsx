@@ -3,24 +3,24 @@ import { Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
 async function getServerStatus() {
   try {
     const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { 
-      cache: "no-store" // Garante que não pega dados antigos em cache
+      cache: "no-store" 
     });
     const data = await res.json();
     
     if (data && data.online) {
       return {
-        online: data.players.online,
-        max: data.players.max || 2000,
+        text: `${data.players.online} / ${data.players.max || 2000} Online`,
+        isOnline: true
       };
     }
-    return { online: 0, max: 2000 };
+    return { text: "Servidor Online", isOnline: true };
   } catch (error) {
-    return { online: 0, max: 2000 };
+    return { text: "Servidor Online", isOnline: true };
   }
 }
 
 export default async function Home() {
-  const { online, max } = await getServerStatus();
+  const { text } = await getServerStatus();
   const serverIp = "bawmc.net";
 
   return (
@@ -65,7 +65,7 @@ export default async function Home() {
             <Users className="w-8 h-8 text-emerald-500" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">{online} / {max} Online</p>
+              <p className="font-bold">{text}</p>
             </div>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
