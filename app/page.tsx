@@ -19,7 +19,6 @@ async function getServerStatus() {
   }
 }
 
-// Força a página a ser dinâmica a cada requisição
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -49,7 +48,7 @@ export default async function Home() {
           BEM-VINDO AO <span className="text-emerald-500">BAWMC</span>
         </h2>
         <p className="text-lg text-slate-400 max-w-xl mb-8">
-          Sua melhor experiência no Minecraft Survival e PvP. Entre agora e faça parte da nossa comunidade!
+          O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana. Entre agora e venha fazer parte dessa história!
         </p>
 
         {/* IP do Servidor */}
@@ -91,15 +90,19 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
             <h4 className="text-xl font-bold text-emerald-400 mb-2">Semi-Anarquia</h4>
-            <p className="text-slate-400 text-sm">Liberdade quase total para construir, destruir e sobreviver com poucas regras.</p>
+            <p className="text-slate-400 text-sm">Liberdade quase total para construir, destruir e sobreviver com economia ativa e poucas regras.</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
             <h4 className="text-xl font-bold text-emerald-400 mb-2">Lifesteal (Novo)</h4>
-            <p className="text-slate-400 text-sm">Cada abate rouba corações do inimigo. Quanto mais você luta, mais forte fica!</p>
+            <p className="text-slate-400 text-sm">Cada abate te fortalece: a cada kill, você ganha um novo coração e ganha economia. Vem testar!</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
             <h4 className="text-xl font-bold text-emerald-400 mb-2">Survival</h4>
-            <p className="text-slate-400 text-sm">O clássico survival com economia, proteção de terrenos e jogabilidade equilibrada.</p>
+            <p className="text-slate-400 text-sm">O clássico survival com economia robusta, proteção de terrenos e jogabilidade equilibrada.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h4 className="text-xl font-bold text-emerald-400 mb-2">Box PvP</h4>
+            <p className="text-slate-400 text-sm">Caia direto na Ação: pegue seus kits em arenas fechadas e enfrente os melhores em ritmo frenético.</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
             <h4 className="text-xl font-bold text-emerald-400 mb-2">Practice</h4>
@@ -108,10 +111,6 @@ export default async function Home() {
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
             <h4 className="text-xl font-bold text-emerald-400 mb-2">Crystal PvP</h4>
             <p className="text-slate-400 text-sm">Focado inteiramente no PvP de cristais com arenas de treino dinâmicas.</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-emerald-400 mb-2">Eventos</h4>
-            <p className="text-slate-400 text-sm">Eventos especiais organizados pela administração com prêmios exclusivos para os participantes.</p>
           </div>
         </div>
       </section>
