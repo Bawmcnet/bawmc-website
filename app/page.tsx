@@ -145,17 +145,23 @@ export default function Home() {
       </nav>
 
       <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-12">
-        {/* Banner Central Principal com Texto + Imagem logo-hero */}
+        {/* Banner Central Principal */}
         <div className="text-center space-y-6 py-4">
+          {/* Badge de Topo com o Cubinho Azul Pequeno */}
           <div className="flex justify-center mb-2">
-            <div className="bg-cyan-500/10 border border-cyan-500/30 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3">
-              <span className="text-3xl font-extrabold tracking-widest text-cyan-400">BAWMC</span>
-              <span className="bg-cyan-500 text-slate-950 text-xs font-black px-2 py-0.5 rounded">MC</span>
+            <div className="bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-2xl shadow-xl flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-lg overflow-hidden bg-blue-600 flex items-center justify-center shadow-sm">
+                <img src="/logo-icon.png" alt="BAW Icon" className="w-full h-full object-cover" />
+              </div>
+              <span className="text-xl font-extrabold tracking-widest text-cyan-400">BAWMC</span>
+              <span className="bg-cyan-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded">MC</span>
             </div>
           </div>
+
           <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
             O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana. Entre agora e venha fazer parte dessa história!
           </p>
+
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
             <button
               onClick={handleCopyIp}
@@ -174,12 +180,12 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Imagem logo-hero abaixo das informações */}
+          {/* Imagem logo-hero em tamanho reduzido (pequeno) */}
           <div className="pt-4 flex justify-center">
             <img 
               src="/logo-hero.png" 
-              alt="BAWMC Hero Banner" 
-              className="max-w-full h-auto rounded-2xl shadow-2xl border border-slate-800/60"
+              alt="BAWMC Hero Logo" 
+              className="w-44 sm:w-56 h-auto object-contain drop-shadow-xl"
             />
           </div>
         </div>
