@@ -22,6 +22,7 @@ async function getServerStatus() {
 export default async function Home() {
   const { text } = await getServerStatus();
   const serverIp = "bawmc.net";
+  const discordLink = "https://discord.com/servers/bawmc-1317180458978639914";
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
@@ -33,7 +34,7 @@ export default async function Home() {
             <a href="#inicio" className="hover:text-emerald-400">Início</a>
             <a href="#modos" className="hover:text-emerald-400">Modos</a>
             <a href="#regras" className="hover:text-emerald-400">Regras</a>
-            <a href="https://discord.gg" target="_blank" className="hover:text-emerald-400">Discord</a>
+            <a href={discordLink} target="_blank" className="hover:text-emerald-400">Discord</a>
           </div>
         </div>
       </nav>
@@ -68,13 +69,13 @@ export default async function Home() {
               <p className="font-bold">{text}</p>
             </div>
           </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+          <a href={discordLink} target="_blank" className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4 hover:border-emerald-500 transition-colors">
             <MessageSquare className="w-8 h-8 text-emerald-500" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Comunidade</p>
               <p className="font-bold">Discord Ativo</p>
             </div>
-          </div>
+          </a>
         </div>
       </section>
 
