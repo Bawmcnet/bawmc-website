@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Swords } from "lucide-react";
 
-// Dicionário com as informações de cada modo
 const modosInfo: Record<string, { nome: string; desc: string; emoji: string; detalhes: string[] }> = {
   "survival": {
     nome: "Survival Clássico",
@@ -56,13 +55,14 @@ const modosInfo: Record<string, { nome: string; desc: string; emoji: string; det
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function ModoDetalhe({ params }: PageProps) {
-  const modo = modosInfo[params.slug];
+export default async function ModoDetalhe({ params }: PageProps) {
+  const resolvedParams = await params;
+  const modo = modosInfo[resolvedParams.slug];
 
   if (!modo) {
     return (
