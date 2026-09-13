@@ -1,17 +1,21 @@
-"use client";
+import { Copy, Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
 
-import { useState } from "react";
-import { Copy, Check, Users, Server, Shield, MessageSquare, Swords } from "lucide-react";
+async function getServerStatus() {
+  try {
+    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { next: { revalidate: 60 } });
+    const data = await res.json();
+    return {
+      online: data.online ? data.players.online : 0,
+      max: data.online ? data.players.max : 2000,
+    };
+  } catch (error) {
+    return { online: 0, max: 2000 };
+  }
+}
 
-export default function Home() {
-  const [copied, setCopied] = useState(false);
+export default async function Home() {
+  const { online, max } = await getServerStatus();
   const serverIp = "bawmc.net";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(serverIp);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
@@ -37,14 +41,10 @@ export default function Home() {
           Sua melhor experiência no Minecraft Survival e PvP. Entre agora e faça parte da nossa comunidade!
         </p>
 
-        {/* Botão de Copiar IP */}
-        <button
-          onClick={handleCopy}
-          className="flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105 mb-12"
-        >
-          {copied ? <Check className="w-6 h-6" /> : <Copy className="w-6 h-6" />}
-          {copied ? "IP COPIADO!" : "JOGAR AGORA"}
-        </button>
+        {/* Botão de Copiar IP (Cliente) - Como precisamos de interatividade, podemos isolar ou usar componentes, mas para manter simples com Server Component, vamos exibir o IP claramente */}
+        <div className="flex items-center gap-3 bg-emerald-500 text-slate-950 font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-emerald-500/20 mb-12">
+          <span>IP: {serverIp}</span>
+        </div>
 
         {/* Status do Servidor */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full">
@@ -59,7 +59,7 @@ export default function Home() {
             <Users className="w-8 h-8 text-emerald-500" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">128 / 2000 Online</p>
+              <p className="font-bold">{online} / {max} Online</p>
             </div>
           </div>
           <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
