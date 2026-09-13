@@ -31,17 +31,18 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
-      {/* Menu Superior com Logo Menor */}
+      {/* Menu Superior */}
       <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <Image 
-              src="/logo-icon.png" 
-              alt="Logo BAWMC" 
-              width={36} 
-              height={36} 
-              className="rounded-lg object-contain"
-            />
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-9 h-9 relative overflow-hidden rounded-lg">
+              <Image 
+                src="/logo-icon.png" 
+                alt="Logo BAW" 
+                fill
+                className="object-cover"
+              />
+            </div>
             <span className="text-xl font-black text-cyan-400 tracking-wider">BAWMC</span>
           </div>
           <div className="flex items-center gap-6 text-sm font-semibold text-slate-300">
@@ -56,15 +57,15 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Hero Section com Logo Grande */}
+      {/* Hero Section */}
       <section id="inicio" className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-slate-900 to-slate-950">
-        <div className="mb-6 flex justify-center">
+        <div className="mb-6 w-full max-w-md flex justify-center">
           <Image 
             src="/logo-hero.png" 
             alt="BAWMC Logo Principal" 
-            width={400} 
-            height={160} 
-            className="object-contain drop-shadow-[0_10px_20px_rgba(6,182,212,0.3)]"
+            width={450} 
+            height={180} 
+            className="w-auto h-28 md:h-36 object-contain drop-shadow-[0_10px_25px_rgba(6,182,212,0.3)]"
             priority
           />
         </div>
