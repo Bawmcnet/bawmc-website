@@ -19,6 +19,10 @@ async function getServerStatus() {
   }
 }
 
+// Força a página a ser dinâmica a cada requisição
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
   const { text } = await getServerStatus();
   const serverIp = "bawmc.net";
