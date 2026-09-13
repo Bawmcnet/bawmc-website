@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Server, Users, Copy, Check, Swords, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, HelpCircle, FileText, MessageSquare } from "lucide-react";
+import { Server, Users, Copy, Check, Swords, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, MessageSquare } from "lucide-react";
 
 interface ServerData {
   online: boolean;
@@ -145,7 +145,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3 font-extrabold text-lg text-cyan-400">
             <div className="w-8 h-8 rounded-lg overflow-hidden bg-blue-600 flex items-center justify-center shadow-md">
-              <img src="/images/image_362ea5.png" alt="Logo BAW" className="w-full h-full object-cover" />
+              <img src="/logo-icon.png" alt="Logo BAW" className="w-full h-full object-cover" />
             </div>
             BAWMC
           </div>
