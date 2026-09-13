@@ -1,31 +1,9 @@
 import { Users, Server, Shield, MessageSquare, Swords, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 
-async function getServerStatus() {
-  try {
-    const res = await fetch("https://api.mcsrvstat.us/3/bawmc.net", { 
-      cache: "no-store",
-      next: { revalidate: 0 }
-    });
-    
-    if (!res.ok) return { text: "Servidor Online" };
-    
-    const data = await res.json();
-    if (data && data.online) {
-      return {
-        text: `${data.players.online} / ${data.players.max || 2000} Online`
-      };
-    }
-    return { text: "Servidor Online" };
-  } catch (error) {
-    return { text: "Servidor Online" };
-  }
-}
-
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
-  const status = await getServerStatus();
+export default function Home() {
   const serverIp = "bawmc.net";
   const discordLink = "https://discord.com/servers/bawmc-1317180458978639914";
   const storeLink = "https://loja.bawmc.net/";
@@ -158,7 +136,7 @@ export default async function Home() {
             <Users className="w-8 h-8 text-cyan-400" />
             <div className="text-left">
               <p className="text-xs text-slate-400 uppercase font-semibold">Jogadores</p>
-              <p className="font-bold">{status.text}</p>
+              <p className="font-bold">Online 24/7</p>
             </div>
           </div>
           <a href={discordLink} target="_blank" className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4 hover:border-cyan-500 transition-colors">
