@@ -29,6 +29,57 @@ export default async function Home() {
   const discordLink = "https://discord.com/servers/bawmc-1317180458978639914";
   const storeLink = "https://loja.bawmc.net/";
 
+  const modos = [
+    {
+      nome: "Survival",
+      desc: "O clássico survival com economia robusta, proteção de terrenos e jogabilidade equilibrada.",
+      emoji: "⛏️",
+      border: "border-amber-500/40 hover:border-amber-500",
+      bg: "bg-amber-500/10",
+      textCol: "text-amber-400"
+    },
+    {
+      nome: "Semi-Anarquia",
+      desc: "Liberdade quase total para construir, destruir e sobreviver com economia ativa e poucas regras.",
+      emoji: "🧨",
+      border: "border-red-500/40 hover:border-red-500",
+      bg: "bg-red-500/10",
+      textCol: "text-red-400"
+    },
+    {
+      nome: "Lifesteal (Novo)",
+      desc: "Cada abate te fortalece: a cada kill, você ganha um novo coração e ganha economia. Vem testar!",
+      emoji: "❤️",
+      border: "border-rose-500/40 hover:border-rose-500",
+      bg: "bg-rose-500/10",
+      textCol: "text-rose-400"
+    },
+    {
+      nome: "Practice e CrystalPvP",
+      desc: "Treine suas habilidades de combate, cristais e domine as arenas de duelo intensas.",
+      emoji: "🔮",
+      border: "border-emerald-500/40 hover:border-emerald-500",
+      bg: "bg-emerald-500/10",
+      textCol: "text-emerald-400"
+    },
+    {
+      nome: "Cosméticos",
+      desc: "Personalize seu visual no servidor com tags, capas, partículas e itens exclusivos.",
+      emoji: "👕",
+      border: "border-purple-500/40 hover:border-purple-500",
+      bg: "bg-purple-500/10",
+      textCol: "text-purple-400"
+    },
+    {
+      nome: "Eventos",
+      desc: "Participe de eventos eletrizantes organizados pela staff com prêmios imperdíveis.",
+      emoji: "🎉",
+      border: "border-blue-500/40 hover:border-blue-500",
+      bg: "bg-blue-500/10",
+      textCol: "text-blue-400"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
       {/* Menu Superior */}
@@ -57,17 +108,19 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section com Logo Flutuante */}
       <section id="inicio" className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-slate-900 to-slate-950">
-        <div className="mb-6 w-full max-w-md flex justify-center">
-          <Image 
-            src="/logo-hero.png" 
-            alt="BAWMC Logo Principal" 
-            width={450} 
-            height={180} 
-            className="w-auto h-28 md:h-36 object-contain drop-shadow-[0_10px_25px_rgba(6,182,212,0.3)]"
-            priority
-          />
+        <div className="mb-6 w-full max-w-xl flex justify-center">
+          <div className="animate-bounce-slow">
+            <Image 
+              src="/logo-hero.png" 
+              alt="BAWMC Logo Principal" 
+              width={520} 
+              height={210} 
+              className="w-auto h-36 md:h-44 object-contain drop-shadow-[0_15px_30px_rgba(6,182,212,0.4)]"
+              priority
+            />
+          </div>
         </div>
 
         <p className="text-lg text-slate-400 max-w-xl mb-8">
@@ -111,36 +164,32 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Modos de Jogo */}
+      {/* Modos de Jogo com Estilo da Loja */}
       <section id="modos" className="max-w-6xl mx-auto p-8 w-full">
         <h3 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Swords className="text-cyan-400" /> Modos de Jogo
+          <Swords className="text-cyan-400" /> Modos & Categorias
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Semi-Anarquia</h4>
-            <p className="text-slate-400 text-sm">Liberdade quase total para construir, destruir e sobreviver com economia ativa e poucas regras.</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Lifesteal (Novo)</h4>
-            <p className="text-slate-400 text-sm">Cada abate te fortalece: a cada kill, você ganha um novo coração e ganha economia. Vem testar!</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Survival</h4>
-            <p className="text-slate-400 text-sm">O clássico survival com economia robusta, proteção de terrenos e jogabilidade equilibrada.</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Box PvP</h4>
-            <p className="text-slate-400 text-sm">Caia direto na Ação: pegue seus kits em arenas fechadas e enfrente os melhores em ritmo frenético.</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Practice</h4>
-            <p className="text-slate-400 text-sm">Treine suas habilidades de combate em diferentes cenários e kits variados.</p>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-            <h4 className="text-xl font-bold text-cyan-400 mb-2">Crystal PvP</h4>
-            <p className="text-slate-400 text-sm">Focado inteiramente no PvP de cristais com arenas de treino dinâmicas.</p>
-          </div>
+          {modos.map((modo, index) => (
+            <div key={index} className={`bg-slate-900 border ${modo.border} p-6 rounded-2xl flex flex-col justify-between transition-all hover:shadow-lg hover:shadow-cyan-500/5`}>
+              <div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className={`w-14 h-14 rounded-xl ${modo.bg} flex items-center justify-center text-3xl shadow-inner`}>
+                    {modo.emoji}
+                  </div>
+                  <h4 className={`text-xl font-bold ${modo.textCol}`}>{modo.nome}</h4>
+                </div>
+                <p className="text-slate-400 text-sm mb-6">{modo.desc}</p>
+              </div>
+              <a 
+                href={storeLink} 
+                target="_blank" 
+                className="bg-white text-slate-950 font-bold py-2.5 px-4 rounded-xl text-center text-sm hover:bg-cyan-400 transition-colors"
+              >
+                Ver produtos →
+              </a>
+            </div>
+          ))}
         </div>
       </section>
 
