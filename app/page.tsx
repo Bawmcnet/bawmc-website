@@ -147,15 +147,13 @@ export default function Home() {
       <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-12">
         {/* Banner Central Principal */}
         <div className="text-center space-y-6 py-4">
-          {/* Badge de Topo com o Cubinho Azul Pequeno */}
+          {/* Logo reduzida no topo substituindo a caixa de texto antiga */}
           <div className="flex justify-center mb-2">
-            <div className="bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-2xl shadow-xl flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-lg overflow-hidden bg-blue-600 flex items-center justify-center shadow-sm">
-                <img src="/logo-icon.png" alt="BAW Icon" className="w-full h-full object-cover" />
-              </div>
-              <span className="text-xl font-extrabold tracking-widest text-cyan-400">BAWMC</span>
-              <span className="bg-cyan-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded">MC</span>
-            </div>
+            <img 
+              src="/logo-hero.png" 
+              alt="BAWMC Logo" 
+              className="w-48 sm:w-60 h-auto object-contain drop-shadow-xl"
+            />
           </div>
 
           <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
@@ -178,15 +176,6 @@ export default function Home() {
             >
               <ShoppingBag className="w-4 h-4" /> Acessar Loja
             </a>
-          </div>
-
-          {/* Imagem logo-hero em tamanho reduzido (pequeno) */}
-          <div className="pt-4 flex justify-center">
-            <img 
-              src="/logo-hero.png" 
-              alt="BAWMC Hero Logo" 
-              className="w-44 sm:w-56 h-auto object-contain drop-shadow-xl"
-            />
           </div>
         </div>
 
