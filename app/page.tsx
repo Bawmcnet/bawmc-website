@@ -23,7 +23,7 @@ import {
 interface ModoJogo {
   id: string;
   nome: string;
-  icone: string;
+  iconeUrl: string; // URL da imagem idêntica à loja
   corGlow: string;
   corBorda: string;
   corTexto: string;
@@ -54,12 +54,12 @@ export default function Home() {
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo
+  // Lista dos Modos de Jogo com as Imagens estilo Loja
   const modosDeJogo: ModoJogo[] = [
     {
       id: "survival",
       nome: "Survival",
-      icone: "⛏️",
+      iconeUrl: "/icones/survival.png", // Substitua com a imagem da Picareta de Diamante 3D
       corGlow: "from-amber-500/20 via-amber-500/10 to-transparent",
       corBorda: "border-amber-500/40 hover:border-amber-500",
       corTexto: "text-amber-400",
@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: "semi-anarquia",
       nome: "Semi-Anarquia",
-      icone: "🧨",
+      iconeUrl: "/icones/semi-anarquia.png", // Substitua com a imagem da TNT 3D
       corGlow: "from-red-500/20 via-red-500/10 to-transparent",
       corBorda: "border-red-500/40 hover:border-red-500",
       corTexto: "text-red-400",
@@ -91,7 +91,7 @@ export default function Home() {
     {
       id: "lifesteal",
       nome: "Lifesteal",
-      icone: "❤️",
+      iconeUrl: "/icones/lifesteal.png", // Substitua com a imagem do Coração Pixel 3D
       corGlow: "from-rose-500/20 via-rose-500/10 to-transparent",
       corBorda: "border-rose-500/40 hover:border-rose-500",
       corTexto: "text-rose-400",
@@ -107,7 +107,7 @@ export default function Home() {
     {
       id: "practice",
       nome: "Practice & Crystal",
-      icone: "💎",
+      iconeUrl: "/icones/practice.png", // Substitua com a imagem do Cristal do End 3D
       corGlow: "from-emerald-500/20 via-emerald-500/10 to-transparent",
       corBorda: "border-emerald-500/40 hover:border-emerald-500",
       corTexto: "text-emerald-400",
@@ -191,7 +191,6 @@ export default function Home() {
       <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Logo B.png colocada aqui no cabeçalho */}
             <img src="/B.png" alt="BAWMC Logo B" className="h-10 w-auto object-contain" />
           </div>
 
@@ -236,7 +235,7 @@ export default function Home() {
                 Servidor oficial do <span className="text-cyan-400">BawMC!</span>
               </h1>
               <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenaline e uma comunidade insana.
+                O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana.
               </p>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
@@ -260,7 +259,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* LOGO PRINCIPAL COMPLETA (Hero) usando BAWmc.png */}
+            {/* LOGO PRINCIPAL COMPLETA */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative group flex justify-center items-center">
                 <div className="absolute inset-0 bg-cyan-500/25 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500 scale-110" />
@@ -335,7 +334,7 @@ export default function Home() {
             href="https://discord.gg/bawmc"
             target="_blank"
             rel="noreferrer"
-            className="text-xs font-semibold text-cyan-400 hover:underline flex items-center gap-1 hidden sm:flex"
+            className="text-xs font-semibold text-cyan-400 hover:underline items-center gap-1 hidden sm:flex"
           >
             Ver avisos no Discord <ExternalLink size={14} />
           </a>
@@ -377,7 +376,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* MODOS DE JOGO */}
+      {/* MODOS DE JOGO (IMAGENS ESTILO LOJA) */}
       <section id="modos" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="mb-10 text-center md:text-left">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center md:justify-start gap-3">
@@ -392,8 +391,13 @@ export default function Home() {
               key={modo.id}
               className="bg-[#0c1017] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-all group relative overflow-hidden"
             >
-              <div className={`w-24 h-24 rounded-xl bg-gradient-to-br ${modo.corGlow} border ${modo.corBorda} flex items-center justify-center shrink-0 shadow-lg relative group-hover:scale-105 transition-transform`}>
-                <span className="text-4xl drop-shadow-md select-none">{modo.icone}</span>
+              {/* Caixinha do ícone estilo loja (quadrada com glow e a imagem dentro) */}
+              <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${modo.corGlow} border ${modo.corBorda} flex items-center justify-center shrink-0 shadow-lg relative p-2 group-hover:scale-105 transition-transform overflow-hidden`}>
+                <img
+                  src={modo.iconeUrl}
+                  alt={`Ícone ${modo.nome}`}
+                  className="w-full h-full object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+                />
               </div>
 
               <div className="flex flex-col justify-between h-full py-1 grow">
@@ -556,16 +560,6 @@ export default function Home() {
               <a href="https://discord.gg/bawmc" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">
                 <MessageSquare size={20} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="YouTube">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="TikTok">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.33-6.33V8.8a8.3 8.3 0 0 0 4.67 1.45V6.8a4.86 4.86 0 0 1-.75-.11z"/>
-                </svg>
-              </a>
             </div>
           </div>
 
@@ -584,8 +578,8 @@ export default function Home() {
             </button>
 
             <div className="flex items-center gap-4 mb-4">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedModo.corGlow} border ${selectedModo.corBorda} flex items-center justify-center text-3xl shadow-lg`}>
-                {selectedModo.icone}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedModo.corGlow} border ${selectedModo.corBorda} flex items-center justify-center shadow-lg p-2 overflow-hidden`}>
+                <img src={selectedModo.iconeUrl} alt={selectedModo.nome} className="w-full h-full object-contain" />
               </div>
               <div>
                 <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Modo de Jogo</span>
