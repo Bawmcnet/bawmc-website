@@ -54,7 +54,7 @@ export default function Home() {
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo no estilo Categorias da Loja
+  // Lista dos Modos de Jogo (sem Clãs & Guerras e Eventos Diários)
   const modosDeJogo: ModoJogo[] = [
     {
       id: "survival",
@@ -118,38 +118,6 @@ export default function Home() {
         "Sistema de Ranking (ELO) e placar de líderes",
         "Sem perda de inventário após as partidas",
         "Partidas personalizadas contra amigos (/duel)"
-      ]
-    },
-    {
-      id: "clas",
-      nome: "Clãs & Guerras",
-      icone: "🛡️",
-      corGlow: "from-purple-500/20 via-purple-500/10 to-transparent",
-      corBorda: "border-purple-500/40 hover:border-purple-500",
-      corTexto: "text-purple-400",
-      descricaoCurta: "Crie sua facção, junte aliados e domine o servidor.",
-      descricaoCompleta: "Junte seus amigos, crie um Clã lendário e dispute o topo do servidor! Clãs acumulam pontos através de kills, eventos dominados e missões diárias.",
-      recursos: [
-        "Comandos completos de Clã (/clan criar, /clan convidar)",
-        "Chat privado exclusivo para membros do clã",
-        "Banco de coins e baú compartilhado do Clã",
-        "Premiação em dinheiro/VIPs para o Clã #1 da temporada"
-      ]
-    },
-    {
-      id: "eventos",
-      nome: "Eventos Diários",
-      icone: "⚔️",
-      corGlow: "from-cyan-500/20 via-cyan-500/10 to-transparent",
-      corBorda: "border-cyan-500/40 hover:border-cyan-500",
-      corTexto: "text-cyan-400",
-      descricaoCurta: "Gladiador, Parkour, Mina VIP e Bosses automáticos.",
-      descricaoCompleta: "Diversão e recompensas garantidas todos os dias! Nossos eventos automáticos acontecem em horários fixos e garantem prêmios valiosos como Chaves de Caixas, Coins e Itens Únicos.",
-      recursos: [
-        "Evento Gladiador semanal com arena gigante",
-        "Parkour valendo prêmios em moedas",
-        "Bosses Míticos que nascem no mundo com drops raros",
-        "Evento Resta Um, Fight e Batata Quente"
       ]
     }
   ];
@@ -219,16 +187,11 @@ export default function Home() {
         </div>
       )}
 
-      {/* NAVBAR estilo Loja */}
+      {/* NAVBAR */}
       <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-cyan-500/10 border border-cyan-500/30 rounded-xl flex items-center justify-center text-cyan-400 font-black text-xl shadow-inner">
-              B
-            </div>
-            <span className="font-extrabold text-2xl tracking-wide text-white">
-              BAW<span className="text-cyan-400">MC</span>
-            </span>
+            <img src="/logo.png" alt="BAWMC Logo" className="h-9 w-auto object-contain" />
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
@@ -257,7 +220,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION estilo Loja */}
+      {/* HERO SECTION */}
       <section id="inicio" className="relative py-16 md:py-24 overflow-hidden border-b border-white/5 bg-gradient-to-b from-[#0e1422] via-[#07090e] to-[#07090e]">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-cyan-500/5 blur-[140px] pointer-events-none rounded-full" />
 
@@ -296,12 +259,15 @@ export default function Home() {
               </div>
             </div>
 
+            {/* LOGO DO BAWMC ILUMINADA */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full group-hover:bg-cyan-500/30 transition-all" />
-                <div className="relative text-7xl sm:text-8xl font-black tracking-wider text-cyan-400 drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] select-none">
-                  BAW<span className="text-white block sm:inline">MC</span>
-                </div>
+              <div className="relative group flex justify-center items-center">
+                <div className="absolute inset-0 bg-cyan-500/25 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500 scale-110" />
+                <img
+                  src="/logo.png"
+                  alt="BAWMC"
+                  className="relative w-full max-w-xs sm:max-w-md object-contain drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
             </div>
 
@@ -355,7 +321,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOTÍCIAS DINÂMICAS DO DISCORD / API */}
+      {/* NOTÍCIAS */}
       <section id="noticias" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -419,7 +385,7 @@ export default function Home() {
           <p className="text-slate-400 text-sm mt-1">Conheça cada um dos nossos modos e suas dinâmicas</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {modosDeJogo.map((modo) => (
             <div
               key={modo.id}
@@ -557,10 +523,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
             <div className="max-w-md">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-cyan-500/10 border border-cyan-500/30 rounded-lg flex items-center justify-center text-cyan-400 font-black text-lg">
-                  B
-                </div>
-                <span className="font-extrabold text-xl text-white">BawMC</span>
+                <img src="/logo.png" alt="BAWMC Logo" className="h-8 w-auto object-contain" />
               </div>
               <p className="text-slate-400 text-xs leading-relaxed mb-2">
                 Loja do servidor de Minecraft BawMC. Adquira VIPs, Gemas, Unbans e muito mais!
