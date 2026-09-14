@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: "semi-anarquia",
       nome: "Semi-Anarquia",
-      iconeUrl: "/icones/semi-anarquia.png", // Substitua com a imagem da TNT 3D
+      iconeUrl: "/icones/semianarquia.png", // Substitua com a imagem da TNT 3D
       corGlow: "from-red-500/20 via-red-500/10 to-transparent",
       corBorda: "border-red-500/40 hover:border-red-500",
       corTexto: "text-red-400",
