@@ -10,139 +10,33 @@ import {
   Shield,
   BookOpen,
   Sword,
+  Sparkles,
+  Zap,
+  HelpCircle,
   MessageSquare,
+  Flame,
+  Award,
+  Crown,
+  Lock,
+  Compass,
   X,
   Youtube,
   Tiktok,
   ShoppingBag,
   ChevronRight,
-  FileText,
-  Compass,
-  Info
+  TrendingUp,
+  FileText
 } from "lucide-react";
-
-interface ModoJogo {
-  id: string;
-  nome: string;
-  icone: string;
-  corGlow: string;
-  corBorda: string;
-  corTexto: string;
-  descricaoCurta: string;
-  descricaoCompleta: string;
-  recursos: string[];
-}
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
   const [onlinePlayers, setOnlinePlayers] = useState<number | null>(null);
   const [isServerOnline, setIsServerOnline] = useState<boolean>(true);
   const [activeModal, setActiveModal] = useState<"terrenos" | "regras" | null>(null);
-  const [selectedModo, setSelectedModo] = useState<ModoJogo | null>(null);
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo com detalhes completos
-  const modosDeJogo: ModoJogo[] = [
-    {
-      id: "survival",
-      nome: "Survival",
-      icone: "⛏️",
-      corGlow: "from-amber-500/20 to-amber-900/10",
-      corBorda: "border-amber-500/40 hover:border-amber-500/60",
-      corTexto: "text-amber-400",
-      descricaoCurta: "Economia equilibrada, proteção de terrenos e empregos.",
-      descricaoCompleta: "O modo Survival do BawMC oferece uma experiência clássica aprimorada! Monte sua base com total segurança usando a pá de ouro, trabalhe em profissões (/jobs) para gerar dinheiro, e negocie seus itens no mercado entre jogadores.",
-      recursos: [
-        "Proteção de terrenos fácil com a Pá de Ouro (/terreno)",
-        "Sistema de Empregos (/jobs) com evolução de nível",
-        "Mercado livre entre jogadores (/mercado)",
-        "Mineração otimizada com geradores e conquistas"
-      ]
-    },
-    {
-      id: "semi-anarquia",
-      nome: "Semi-Anarquia",
-      icone: "🧨",
-      corGlow: "from-red-500/20 to-red-900/10",
-      corBorda: "border-red-500/40 hover:border-red-500/60",
-      corTexto: "text-red-400",
-      descricaoCurta: "PvP liberado, invasões a bases e ação sem limites.",
-      descricaoCompleta: "Modo focado na sobrevivência raiz! Aqui o PvP é ativado no mundo inteiro, bases podem ser invadidas com TNT e a confiança é o seu bem mais precioso. Monte seu clã e domine os recursos mais raros.",
-      recursos: [
-        "PvP 24/7 liberado no mapa principal",
-        "Invasões e destruição com TNT e canhões",
-        "Clãs e guerras por áreas estratégicas",
-        "Drops de suprimentos (Airdrops) pelo mapa"
-      ]
-    },
-    {
-      id: "lifesteal",
-      nome: "Lifesteal",
-      icone: "❤️",
-      corGlow: "from-rose-500/20 to-rose-900/10",
-      corBorda: "border-rose-500/40 hover:border-rose-500/60",
-      corTexto: "text-rose-400",
-      descricaoCurta: "Roube corações ao eliminar jogadores nas arenas.",
-      descricaoCompleta: "Um modo de PvP de altíssima tensão! A cada jogador que você elimina, você rouba 1 coração máximo dele. Se perder todos os seus corações, você ficará temporariamente fora de jogo até ser revivido com um item especial de Farol!",
-      recursos: [
-        "Mecânica de roubo de vida por kill",
-        "Criação de corações extras via crafting",
-        "Arenas PvP customizadas com drops raros",
-        "Reviva aliados usando o Farol de Almas"
-      ]
-    },
-    {
-      id: "practice",
-      nome: "Practice & Crystal",
-      icone: "💎",
-      corGlow: "from-emerald-500/20 to-emerald-900/10",
-      corBorda: "border-emerald-500/40 hover:border-emerald-500/60",
-      corTexto: "text-emerald-400",
-      descricaoCurta: "Treine PvP 1v1, Crystal PvP e Netherite sem perder itens.",
-      descricaoCompleta: "Arena de treinamento ideal para treinar suas habilidades sem risco de perder seus itens do inventário. Desafie amigos para duelos 1v1 ou entre na fila ranked de Crystal PvP e Sword.",
-      recursos: [
-        "Modos: Crystal, Netherite, Sword, Pot e Boxing",
-        "Sistema de Ranking (ELO) e placar de líderes",
-        "Sem perda de inventário após as partidas",
-        "Partidas personalizadas contra amigos (/duel)"
-      ]
-    },
-    {
-      id: "clas",
-      nome: "Clãs & Guerras",
-      icone: "🛡️",
-      corGlow: "from-purple-500/20 to-purple-900/10",
-      corBorda: "border-purple-500/40 hover:border-purple-500/60",
-      corTexto: "text-purple-400",
-      descricaoCurta: "Crie sua facção, junte aliados e domine o servidor.",
-      descricaoCompleta: "Junte seus amigos, crie um Clã lendário e dispute o topo do servidor! Clãs acumulam pontos através de kills, eventos dominados e missões diárias.",
-      recursos: [
-        "Comandos completos de Clã (/clan criar, /clan convidav)",
-        "Chat privado exclusivo para membros do clã",
-        "Banco de coins e baú compartilhado do Clã",
-        "Premiação em dinheiro/VIPS para o Clã #1 da temporada"
-      ]
-    },
-    {
-      id: "eventos",
-      nome: "Eventos Diários",
-      icone: "⚔️",
-      corGlow: "from-cyan-500/20 to-cyan-900/10",
-      corBorda: "border-cyan-500/40 hover:border-cyan-500/60",
-      corTexto: "text-cyan-400",
-      descricaoCurta: "Gladiador, Parkour, Mina VIP e Bosses automáticos.",
-      descricaoCompleta: "Diversão e recompensas garantidas todos os dias! Nossos eventos automáticos acontecem em horários fixos e garantem prêmios valiosos como Chaves de Caixas, Coins e Itens Únicos.",
-      recursos: [
-        "Evento Gladiador semanal com arena gigante",
-        "Parkour valendo prêmios em moedas",
-        "Bosses Míticos que nascem no mundo com drops raros",
-        "Evento Resta Um, Fight e Batata Quente"
-      ]
-    }
-  ];
-
-  // Buscar status em tempo real do servidor
+  // Buscar status em tempo real
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}`)
       .then((res) => res.json())
@@ -170,7 +64,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#080b11] text-slate-100 font-sans selection:bg-cyan-500 selection:text-black">
       
-      {/* Toast de Cópia de IP */}
+      {/* Toast de Cópia */}
       {copied && (
         <div className="fixed bottom-6 right-6 z-50 bg-cyan-500 text-black px-5 py-3 rounded-full font-bold shadow-lg shadow-cyan-500/30 flex items-center gap-2 animate-bounce">
           <Check size={18} />
@@ -178,7 +72,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* NAVBAR */}
+      {/* NAVBAR (Estilo Loja) */}
       <header className="sticky top-0 z-40 bg-[#080b11]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -198,7 +92,7 @@ export default function Home() {
             <button onClick={() => setActiveModal("regras")} className="hover:text-cyan-400 transition-colors">
               Regras
             </button>
-            <a href="https://discord.gg/bawmc" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">
+            <a href="https://discord.gg/bawmc" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
               Discord
             </a>
             <a href="#staff" className="hover:text-cyan-400 transition-colors">Staff</a>
@@ -216,12 +110,14 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION (Estilo Loja) */}
       <section id="inicio" className="relative py-20 md:py-28 overflow-hidden border-b border-white/5 bg-gradient-to-b from-[#0e131f] to-[#080b11]">
+        {/* Glow de fundo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[120px] pointer-events-none rounded-full" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
           
+          {/* Logo Central em Destaque */}
           <div className="mb-6 relative group">
             <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full group-hover:bg-cyan-500/30 transition-all" />
             <div className="relative text-5xl md:text-7xl font-black tracking-wider text-cyan-400 drop-shadow-[0_0_25px_rgba(6,182,212,0.5)]">
@@ -236,6 +132,7 @@ export default function Home() {
             Prepare-se para viver momentos eletrizantes com economia equilibrada, sistemas exclusivos, eventos diários e uma comunidade incrível.
           </p>
 
+          {/* Botões do Hero */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
             <button
               onClick={copyToClipboard}
@@ -256,7 +153,7 @@ export default function Home() {
             </a>
           </div>
 
-          {/* STATUS CARDS */}
+          {/* CARDS DE STATUS (3 colunas estilo loja) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl text-left">
             <div className="bg-[#0f1420]/80 border border-white/5 rounded-2xl p-5 flex items-center gap-4 backdrop-blur-sm">
               <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400">
@@ -304,7 +201,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOTÍCIAS */}
+      {/* NOTÍCIAS E AVISOS */}
       <section id="noticias" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -380,56 +277,128 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MODOS DE JOGO (CLIQUE ABRE MODAL COM DETALHES) */}
+      {/* MODOS DE JOGO (DESIGN IDÊNTICO À FOTO 2 DA LOJA) */}
       <section id="modos" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="mb-10 text-center md:text-left">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center md:justify-start gap-3">
             <Compass className="text-cyan-400" /> Modos de Jogo
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Clique em qualquer modo para ver informações e detalhes completos</p>
+          <p className="text-slate-400 text-sm mt-1">Conheça as modalidades disponíveis em nosso servidor</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {modosDeJogo.map((modo) => (
-            <div
-              key={modo.id}
-              onClick={() => setSelectedModo(modo)}
-              className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between transition-all cursor-pointer hover:scale-[1.02] hover:bg-[#131928] group"
-            >
-              <div className="flex items-center gap-4">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${modo.corGlow} border ${modo.corBorda} flex items-center justify-center shadow-lg transition-transform group-hover:scale-105`}>
-                  <span className="text-3xl">{modo.icone}</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-extrabold text-white group-hover:text-cyan-400 transition-colors">
-                    {modo.nome}
-                  </h3>
-                  <p className="text-slate-400 text-xs mt-0.5 line-clamp-1 max-w-[180px]">
-                    {modo.descricaoCurta}
-                  </p>
-                </div>
-              </div>
 
-              <button className="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3 py-2 rounded-full transition-all flex items-center gap-1 shrink-0">
-                Ver mais <ChevronRight size={14} />
-              </button>
+          {/* CARD 1 - SURVIVAL */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-amber-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-900/10 border border-amber-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                <span className="text-3xl">⛏️</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Survival</h3>
+                <p className="text-slate-400 text-xs mt-1">Economia, proteção de terrenos e empregos.</p>
+              </div>
             </div>
-          ))}
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
+          {/* CARD 2 - SEMI-ANARQUIA */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-red-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-red-500/20 to-red-900/10 border border-red-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                <span className="text-3xl">🧨</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Semi-Anarquia</h3>
+                <p className="text-slate-400 text-xs mt-1">PvP liberado, roubos e poucas regras.</p>
+              </div>
+            </div>
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
+          {/* CARD 3 - LIFESTEAL */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-rose-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-rose-500/20 to-rose-900/10 border border-rose-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(244,63,94,0.2)]">
+                <span className="text-3xl">❤️</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Lifesteal</h3>
+                <p className="text-slate-400 text-xs mt-1">Roube corações ao eliminar jogadores.</p>
+              </div>
+            </div>
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
+          {/* CARD 4 - PRACTICE */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-emerald-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-900/10 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                <span className="text-3xl">💎</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Practice & Crystal</h3>
+                <p className="text-slate-400 text-xs mt-1">Treine PvP 1v1, Crystal e Netherite.</p>
+              </div>
+            </div>
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
+          {/* CARD 5 - CLÃS / COSMÉTICOS */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-purple-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-900/10 border border-purple-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                <span className="text-3xl">🛡️</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Clãs & Guerra</h3>
+                <p className="text-slate-400 text-xs mt-1">Crie sua facção e domine o servidor.</p>
+              </div>
+            </div>
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
+          {/* CARD 6 - EVENTOS */}
+          <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-cyan-500/30 transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-900/10 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                <span className="text-3xl">⚔️</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-white">Eventos Diários</h3>
+                <p className="text-slate-400 text-xs mt-1">Gladiador, Parkour, Mina VIP e Bosses.</p>
+              </div>
+            </div>
+            <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="bg-white hover:bg-slate-200 text-black text-xs font-bold px-4 py-2 rounded-full transition-all flex items-center gap-1 shadow">
+              Ver mais <ChevronRight size={14} />
+            </a>
+          </div>
+
         </div>
       </section>
 
-      {/* TUTORIAIS */}
+      {/* TUTORIAIS E COMANDOS */}
       <section id="tutoriais" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="mb-10 text-center md:text-left">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center md:justify-start gap-3">
             <BookOpen className="text-cyan-400" /> Tutoriais para Iniciantes
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Aprenda os comandos principais para começar a jogar</p>
+          <p className="text-slate-400 text-sm mt-1">Aprenda os comandos principais para começar bem</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-6">
-            <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-center text-amber-400 font-bold mb-4 text-xl">
+            <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-center text-amber-400 font-bold mb-4">
               🔑
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Registro de Conta</h3>
@@ -440,24 +409,24 @@ export default function Home() {
 
           <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-6 flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center text-emerald-400 font-bold mb-4 text-xl">
+              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center text-emerald-400 font-bold mb-4">
                 🏠
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Proteção de Terrenos</h3>
               <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                Use <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/terreno</code> para pegar a pá de ouro e proteger suas construções.
+                Use <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/terreno</code> para pegar a pá de ouro e proteger suas construções contra griefers.
               </p>
             </div>
             <button
               onClick={() => setActiveModal("terrenos")}
               className="border border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-400 font-bold text-xs px-4 py-2.5 rounded-xl transition-all w-full text-center"
             >
-              Ver Guia de Proteção ↓
+              Ver mais (Comandos & Guia) ↓
             </button>
           </div>
 
           <div className="bg-[#0f1420] border border-white/5 rounded-2xl p-6">
-            <div className="w-12 h-12 bg-purple-500/10 border border-purple-500/30 rounded-xl flex items-center justify-center text-purple-400 font-bold mb-4 text-xl">
+            <div className="w-12 h-12 bg-purple-500/10 border border-purple-500/30 rounded-xl flex items-center justify-center text-purple-400 font-bold mb-4">
               💲
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Economia & Lucro</h3>
@@ -470,13 +439,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STAFF */}
+      {/* SEÇÃO DA STAFF */}
       <section id="staff" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
             <Shield className="text-cyan-400" /> Nossa Equipe (Staff)
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Responsáveis pela administração do servidor e do site</p>
+          <p className="text-slate-400 text-sm mt-1">Responsáveis por manter a ordem e a segurança do servidor</p>
         </div>
 
         <div className="space-y-6">
@@ -516,11 +485,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER (ESTILO IDÊNTICO À FOTO 1 DA LOJA) */}
       <footer className="bg-[#05070c] py-12 text-slate-400 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
+            
+            {/* Esquerda: Logo, Descrição e Email */}
             <div className="max-w-md">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 bg-cyan-500/10 border border-cyan-500/30 rounded-lg flex items-center justify-center text-cyan-400 font-black text-lg">
@@ -529,31 +500,35 @@ export default function Home() {
                 <span className="font-extrabold text-xl text-white">BawMC</span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed mb-2">
-                Loja do servidor de Minecraft BawMC. Adquira Vips, Unban, Gemas e mais!
+                Servidor de Minecraft BawMC. Adquira VIPs, Unban, Gemas e muito mais em nossa loja oficial!
               </p>
               <p className="text-slate-500 text-[11px] mb-4">
-                Não somos associados, afiliados pela Mojang Studios ou Microsoft.
+                Não somos associados ou afiliados à Mojang Studios ou Microsoft.
               </p>
               <p className="text-xs text-slate-300">
-                Email: <a href="mailto:suporte@bawmc.net" className="text-cyan-400 hover:underline">suporte@bawmc.net</a>
+                Email de Suporte: <a href="mailto:suporte@bawmc.net" className="text-cyan-400 hover:underline">suporte@bawmc.net</a>
               </p>
             </div>
 
+            {/* Direita: Links Rápidos */}
             <div className="flex flex-col items-start md:items-end gap-2 text-xs">
               <span className="font-bold text-white text-sm mb-1">Acesse:</span>
               <a href="#inicio" className="hover:text-cyan-400 transition-colors">Página Inicial</a>
               <a href="https://loja.bawmc.net" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">Nossa Loja</a>
               <button onClick={() => setActiveModal("regras")} className="hover:text-cyan-400 transition-colors">
-                Termos de Serviço
+                Termos de Serviço & Regras
               </button>
             </div>
+
           </div>
 
+          {/* Divisor */}
           <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-slate-500">
               Copyright © 2026 BawMC. Todos os direitos reservados.
             </p>
 
+            {/* Redes Sociais no canto inferior direito */}
             <div className="flex items-center gap-5 text-slate-400">
               <a href="https://discord.gg/bawmc" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">
                 <MessageSquare size={20} />
@@ -569,62 +544,6 @@ export default function Home() {
 
         </div>
       </footer>
-
-      {/* MODAL DE INFORMAÇÕES DO MODO DE JOGO */}
-      {selectedModo && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#0f1420] border border-white/10 rounded-3xl max-w-lg w-full p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
-            <button
-              onClick={() => setSelectedModo(null)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="flex items-center gap-4 mb-4">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${selectedModo.corGlow} border ${selectedModo.corBorda} flex items-center justify-center text-3xl`}>
-                {selectedModo.icone}
-              </div>
-              <div>
-                <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Modo de Jogo</span>
-                <h3 className={`text-2xl font-black ${selectedModo.corTexto}`}>{selectedModo.nome}</h3>
-              </div>
-            </div>
-
-            <p className="text-slate-300 text-sm leading-relaxed mb-6 bg-black/30 p-4 rounded-xl border border-white/5">
-              {selectedModo.descricaoCompleta}
-            </p>
-
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-              <Info size={14} className="text-cyan-400" /> Destaques e Recursos:
-            </h4>
-
-            <ul className="space-y-2 mb-6">
-              {selectedModo.recursos.map((recurso, index) => (
-                <li key={index} className="flex items-start gap-2 text-xs text-slate-300">
-                  <span className="text-cyan-400 font-bold">•</span>
-                  <span>{recurso}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={copyToClipboard}
-                className="flex-1 bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded-xl transition-all text-xs flex items-center justify-center gap-2"
-              >
-                <Copy size={16} /> Copiar IP para Jogar
-              </button>
-              <button
-                onClick={() => setSelectedModo(null)}
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-3 rounded-xl transition-all text-xs"
-              >
-                Fechar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* MODAL DE REGRAS */}
       {activeModal === "regras" && (
