@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, X, MessageSquare } from "lucide-react";
+import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, X, MessageSquare, ScrollText } from "lucide-react";
 
 interface ServerData {
   online: boolean;
@@ -24,7 +24,6 @@ interface StaffItem {
   nome: string;
   cargo: string;
   cor: string;
-  foto?: string;
 }
 
 const modos: ModoItem[] = [
@@ -76,7 +75,7 @@ const modos: ModoItem[] = [
 ];
 
 const staffMinecraft: StaffItem[] = [
-  { nome: "excambaw", cargo: "Dono", cor: "text-red-400 border-red-500/30 bg-red-500/10", foto: "/E.png" },
+  { nome: "excambaw", cargo: "Dono", cor: "text-red-400 border-red-500/30 bg-red-500/10" },
   { nome: "masterhg", cargo: "Administrador", cor: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10" }
 ];
 
@@ -88,6 +87,7 @@ export default function Home() {
   const [serverStatus, setServerStatus] = useState<ServerData | null>(null);
   const [copied, setCopied] = useState(false);
   const [modalTerrenosOpen, setModalTerrenosOpen] = useState(false);
+  const [modalRegrasOpen, setModalRegrasOpen] = useState(false);
   
   const serverIp = "bawmc.net";
 
@@ -109,13 +109,21 @@ export default function Home() {
   const handleCopyIp = () => {
     navigator.clipboard.writeText(serverIp);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans relative">
+      {/* Toast Notification ao copiar o IP */}
+      {copied && (
+        <div className="fixed bottom-6 right-6 z-50 bg-cyan-500 text-slate-950 px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-2 shadow-xl shadow-cyan-500/20 animate-bounce">
+          <Check className="w-4 h-4" />
+          IP {serverIp} copiado com sucesso!
+        </div>
+      )}
+
       {/* Navegação Principal */}
-      <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+      <nav className="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-40">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3 font-extrabold text-lg text-cyan-400">
             <div className="w-8 h-8 rounded-lg overflow-hidden bg-blue-600 flex items-center justify-center shadow-md">
@@ -128,8 +136,12 @@ export default function Home() {
             <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">Início</a>
             <a href="#tutoriais" className="hover:text-cyan-400 transition-colors">Tutoriais</a>
             <a href="#modos" className="hover:text-cyan-400 transition-colors">Modos</a>
-            <a href="#regras" className="hover:text-cyan-400 transition-colors">Regras</a>
-            <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Discord</a>
+            <button onClick={() => setModalRegrasOpen(true)} className="hover:text-cyan-400 transition-colors cursor-pointer">
+              Regras
+            </button>
+            <a href="https://discord.com/servers/bawmc-1317180458978639914" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+              Discord
+            </a>
             <a href="#staff" className="hover:text-cyan-400 transition-colors">Staff</a>
           </div>
 
@@ -147,7 +159,6 @@ export default function Home() {
       <main className="flex-1 max-w-5xl mx-auto p-8 w-full space-y-12">
         {/* Banner Central Principal */}
         <div className="text-center space-y-6 py-4">
-          {/* Logo reduzida no topo substituindo a caixa de texto antiga */}
           <div className="flex justify-center mb-2">
             <img 
               src="/logo-hero.png" 
@@ -280,7 +291,7 @@ export default function Home() {
               <div className="space-y-3 pt-2">
                 <button
                   onClick={() => setModalTerrenosOpen(true)}
-                  className="w-full bg-emerald-950/60 border border-emerald-500/30 hover:bg-emerald-900/50 text-emerald-400 font-medium py-2 px-4 rounded-xl text-xs transition-colors flex items-center justify-center gap-1"
+                  className="w-full bg-emerald-950/60 border border-emerald-500/30 hover:bg-emerald-900/50 text-emerald-400 font-medium py-2 px-4 rounded-xl text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
                 >
                   Ver mais (Comandos & Guia) ↓
                 </button>
@@ -326,7 +337,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Seção de Staff */}
+        {/* Seção de Staff com Avatares do Minecraft */}
         <div id="staff" className="space-y-6">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
             <ShieldAlert className="w-5 h-5 text-cyan-400" /> Nossa Equipe (Staff)
@@ -337,12 +348,15 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {staffMinecraft.map((membro, index) => (
                 <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg overflow-hidden">
-                    {membro.foto ? (
-                      <img src={membro.foto} alt={membro.nome} className="w-full h-full object-cover" />
-                    ) : (
-                      membro.nome.charAt(0).toUpperCase()
-                    )}
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-cyan-400 text-lg overflow-hidden shrink-0">
+                    <img 
+                      src={`https://mc-heads.net/avatar/${membro.nome}/64`} 
+                      alt={membro.nome} 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
                   </div>
                   <div>
                     <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
@@ -360,12 +374,15 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {staffSite.map((membro, index) => (
                 <div key={index} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-amber-400 text-lg overflow-hidden">
-                    {membro.foto ? (
-                      <img src={membro.foto} alt={membro.nome} className="w-full h-full object-cover" />
-                    ) : (
-                      membro.nome.charAt(0).toUpperCase()
-                    )}
+                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-amber-400 text-lg overflow-hidden shrink-0">
+                    <img 
+                      src={`https://mc-heads.net/avatar/${membro.nome}/64`} 
+                      alt={membro.nome} 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
                   </div>
                   <div>
                     <h5 className="font-bold text-white text-sm">{membro.nome}</h5>
@@ -390,7 +407,7 @@ export default function Home() {
               </h3>
               <button
                 onClick={() => setModalTerrenosOpen(false)}
-                className="text-slate-400 hover:text-white bg-slate-800/60 p-1.5 rounded-full transition-colors"
+                className="text-slate-400 hover:text-white bg-slate-800/60 p-1.5 rounded-full transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -449,6 +466,48 @@ export default function Home() {
                     <span><code className="bg-slate-900 px-1.5 py-0.5 rounded text-cyan-400 font-mono">/preso</code>: Teletransporta para fora se ficar preso.</span>
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Regras do Servidor */}
+      {modalRegrasOpen && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <h3 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                <ScrollText className="w-5 h-5" /> Regras da Comunidade BAWMC
+              </h3>
+              <button
+                onClick={() => setModalRegrasOpen(false)}
+                className="text-slate-400 hover:text-white bg-slate-800/60 p-1.5 rounded-full transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-2">
+                <h4 className="font-bold text-red-400 text-sm">1. Conduta e Respeito</h4>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  Proibido ofensas graves, preconceito, discriminação, flood, spam ou divulgação de outros servidores no chat geral ou privado.
+                </p>
+              </div>
+
+              <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-2">
+                <h4 className="font-bold text-amber-400 text-sm">2. Cheats e Trapaças</h4>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  É estritamente proibido o uso de hacks, clientes modificados que concedem vantagem ilícita, auto-clickers desproporcionais ou exploração de bugs.
+                </p>
+              </div>
+
+              <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-2">
+                <h4 className="font-bold text-cyan-400 text-sm">3. Economia e Contas</h4>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  Proibido comércio de itens ou contas por dinheiro real fora da loja oficial do servidor.
+                </p>
               </div>
             </div>
           </div>
