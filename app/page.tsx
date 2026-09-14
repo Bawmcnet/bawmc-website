@@ -54,7 +54,7 @@ export default function Home() {
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo (sem Clãs & Guerras e Eventos Diários)
+  // Lista dos Modos de Jogo
   const modosDeJogo: ModoJogo[] = [
     {
       id: "survival",
@@ -191,7 +191,8 @@ export default function Home() {
       <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="BAWMC Logo" className="h-9 w-auto object-contain" />
+            {/* Logo do Header usando BAWmc.png */}
+            <img src="/BAWmc.png" alt="BAWMC Logo" className="h-10 w-auto object-contain" />
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
@@ -259,13 +260,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* LOGO DO BAWMC ILUMINADA */}
+            {/* LOGO PRINCIPAL (Hero) usando BAWmc.png */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative group flex justify-center items-center">
                 <div className="absolute inset-0 bg-cyan-500/25 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500 scale-110" />
                 <img
-                  src="/logo.png"
-                  alt="BAWMC"
+                  src="/BAWmc.png"
+                  alt="BAWMC Logo"
                   className="relative w-full max-w-xs sm:max-w-md object-contain drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -523,7 +524,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
             <div className="max-w-md">
               <div className="flex items-center gap-3 mb-4">
-                <img src="/logo.png" alt="BAWMC Logo" className="h-8 w-auto object-contain" />
+                <img src="/BAWmc.png" alt="BAWMC Logo" className="h-8 w-auto object-contain" />
               </div>
               <p className="text-slate-400 text-xs leading-relaxed mb-2">
                 Loja do servidor de Minecraft BawMC. Adquira VIPs, Gemas, Unbans e muito mais!
