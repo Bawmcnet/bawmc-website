@@ -96,7 +96,7 @@ export default function Home() {
       corBorda: "border-rose-500/40 hover:border-rose-500",
       corTexto: "text-rose-400",
       descricaoCurta: "Roube corações ao eliminar jogadores nas arenas.",
-      descricaoCompleta: "Um modo de PvP de altíssima tensão! A cada jogador que você elimina, você rouba 1 coração máximo dele. Se perder todos os seus corações, você ficará temporariamente fora de jogo até ser revivido com um item especial!",
+      descricaoCompleta: "Um modo de PvP de altísima tensão! A cada jogador que você elimina, você rouba 1 coração máximo dele. Se perder todos os seus corações, você ficará temporariamente fora de jogo até ser revivido com um item especial!",
       recursos: [
         "Mecânica de roubo de vida por kill",
         "Criação de corações extras via crafting",
@@ -187,12 +187,12 @@ export default function Home() {
         </div>
       )}
 
-      {/* NAVBAR */}
+      {/* NAVBAR / HEADER */}
       <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Logo do Header usando BAWmc.png */}
-            <img src="/BAWmc.png" alt="BAWMC Logo" className="h-10 w-auto object-contain" />
+            {/* Logo B.png colocada aqui no cabeçalho */}
+            <img src="/B.png" alt="BAWMC Logo B" className="h-10 w-auto object-contain" />
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
@@ -236,7 +236,7 @@ export default function Home() {
                 Servidor oficial do <span className="text-cyan-400">BawMC!</span>
               </h1>
               <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana.
+                O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenaline e uma comunidade insana.
               </p>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
@@ -260,13 +260,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* LOGO PRINCIPAL (Hero) usando BAWmc.png */}
+            {/* LOGO PRINCIPAL COMPLETA (Hero) usando BAWmc.png */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative group flex justify-center items-center">
                 <div className="absolute inset-0 bg-cyan-500/25 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500 scale-110" />
                 <img
                   src="/BAWmc.png"
-                  alt="BAWMC Logo"
+                  alt="BAWMC Logo Principal"
                   className="relative w-full max-w-xs sm:max-w-md object-contain drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -524,7 +524,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
             <div className="max-w-md">
               <div className="flex items-center gap-3 mb-4">
-                <img src="/BAWmc.png" alt="BAWMC Logo" className="h-8 w-auto object-contain" />
+                <img src="/B.png" alt="BAWMC Logo B" className="h-8 w-auto object-contain" />
               </div>
               <p className="text-slate-400 text-xs leading-relaxed mb-2">
                 Loja do servidor de Minecraft BawMC. Adquira VIPs, Gemas, Unbans e muito mais!
