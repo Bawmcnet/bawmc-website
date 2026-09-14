@@ -59,7 +59,7 @@ export default function Home() {
     {
       id: "survival",
       nome: "Survival",
-      iconeUrl: "/icones/survival.png", // Substitua com a imagem da Picareta de Diamante 3D
+      iconeUrl: "/icones/survival.png",
       corGlow: "from-amber-500/20 via-amber-500/10 to-transparent",
       corBorda: "border-amber-500/40 hover:border-amber-500",
       corTexto: "text-amber-400",
@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: "semi-anarquia",
       nome: "Semi-Anarquia",
-      iconeUrl: "/icones/semianarquia.png", // Substitua com a imagem da TNT 3D
+      iconeUrl: "/icones/semianarquia.png", // Ajustado para bater com o nome do arquivo
       corGlow: "from-red-500/20 via-red-500/10 to-transparent",
       corBorda: "border-red-500/40 hover:border-red-500",
       corTexto: "text-red-400",
@@ -91,7 +91,7 @@ export default function Home() {
     {
       id: "lifesteal",
       nome: "Lifesteal",
-      iconeUrl: "/icones/lifesteal.png", // Substitua com a imagem do Coração Pixel 3D
+      iconeUrl: "/icones/lifesteal.png",
       corGlow: "from-rose-500/20 via-rose-500/10 to-transparent",
       corBorda: "border-rose-500/40 hover:border-rose-500",
       corTexto: "text-rose-400",
@@ -107,7 +107,7 @@ export default function Home() {
     {
       id: "practice",
       nome: "Practice & Crystal",
-      iconeUrl: "/icones/practice.png", // Substitua com a imagem do Cristal do End 3D
+      iconeUrl: "/icones/practice.png",
       corGlow: "from-emerald-500/20 via-emerald-500/10 to-transparent",
       corBorda: "border-emerald-500/40 hover:border-emerald-500",
       corTexto: "text-emerald-400",
@@ -192,6 +192,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/B.png" alt="BAWMC Logo B" className="h-10 w-auto object-contain" />
+            <span className="text-xl font-black tracking-wider text-white">
+              Baw<span className="text-cyan-400">MC</span>
+            </span>
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
