@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, Key, Home as HomeIcon, DollarSign, X, MessageSquare, ScrollText } from "lucide-react";
+import { 
+  Users, Copy, Check, Compass, BookOpen, ShieldAlert, ShoppingBag, 
+  Key, Home as HomeIcon, DollarSign, X, MessageSquare, ScrollText,
+  Rocket, Wrench, AlertTriangle, ExternalLink, Megaphone
+} from "lucide-react";
 
 interface ServerData {
   online: boolean;
@@ -24,6 +28,15 @@ interface StaffItem {
   nome: string;
   cargo: string;
   cor: string;
+}
+
+interface Noticia {
+  id: string;
+  categoria: "lancamento" | "melhoria" | "manutencao";
+  titulo: string;
+  data: string;
+  descricao: string;
+  tagTexto: string;
 }
 
 const modos: ModoItem[] = [
@@ -83,6 +96,33 @@ const staffSite: StaffItem[] = [
   { nome: "batatafrita123", cargo: "Dono", cor: "text-amber-400 border-amber-500/30 bg-amber-500/10" }
 ];
 
+const noticiasDiscord: Noticia[] = [
+  {
+    id: "1",
+    categoria: "lancamento",
+    titulo: "Nova Temporada Lifesteal & Arenas PVP",
+    data: "Hoje",
+    tagTexto: "Grande Lançamento",
+    descricao: "Lançamos oficialmente o novo modo Lifesteal com sistema de corações por kill, kit inicial renovado e mapa resetado!"
+  },
+  {
+    id: "2",
+    categoria: "melhoria",
+    titulo: "Otimização de Lag e Ajuste no Mercado",
+    data: "Ontem",
+    tagTexto: "Melhorias & Correções",
+    descricao: "Corrigimos o bug de duplicação no /mercado, ajustamos o atraso no teleport (/tpa) e aumentamos o limite de blocos de proteção."
+  },
+  {
+    id: "3",
+    categoria: "manutencao",
+    titulo: "Manutenção Preventiva de Rede Concluída",
+    data: "12/09/2026",
+    tagTexto: "Reparos & Quedas",
+    descricao: "Servidor passou por uma manutenção rápida na máquina dedicada para estabilização de ping e proteção contra ataques DDoS."
+  }
+];
+
 export default function Home() {
   const [serverStatus, setServerStatus] = useState<ServerData | null>(null);
   const [copied, setCopied] = useState(false);
@@ -134,6 +174,7 @@ export default function Home() {
           
           <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-300">
             <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">Início</a>
+            <a href="#noticias" className="hover:text-cyan-400 transition-colors">Notícias</a>
             <a href="#tutoriais" className="hover:text-cyan-400 transition-colors">Tutoriais</a>
             <a href="#modos" className="hover:text-cyan-400 transition-colors">Modos</a>
             <button onClick={() => setModalRegrasOpen(true)} className="hover:text-cyan-400 transition-colors cursor-pointer">
@@ -225,6 +266,67 @@ export default function Home() {
           </div>
         </div>
 
+        {/* SEÇÃO: Mural de Notícias & Discord */}
+        <div id="noticias" className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <h3 className="text-xl font-bold flex items-center gap-2 text-white">
+              <Megaphone className="w-5 h-5 text-cyan-400" /> Mural de Notícias e Discord
+            </h3>
+            <a 
+              href="https://discord.com/servers/bawmc-1317180458978639914" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs text-cyan-400 font-bold hover:underline flex items-center gap-1"
+            >
+              Ver avisos em tempo real no Discord <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {noticiasDiscord.map((item) => {
+              const isLancamento = item.categoria === "lancamento";
+              const isMelhoria = item.categoria === "melhoria";
+              
+              return (
+                <div 
+                  key={item.id} 
+                  className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4 hover:border-slate-700 transition-colors"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border flex items-center gap-1 ${
+                        isLancamento 
+                          ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" 
+                          : isMelhoria 
+                          ? "bg-cyan-500/10 border-cyan-500/30 text-cyan-400" 
+                          : "bg-amber-500/10 border-amber-500/30 text-amber-400"
+                      }`}>
+                        {isLancamento && <Rocket className="w-3 h-3" />}
+                        {isMelhoria && <Wrench className="w-3 h-3" />}
+                        {!isLancamento && !isMelhoria && <AlertTriangle className="w-3 h-3" />}
+                        {item.tagTexto}
+                      </span>
+                      <span className="text-[11px] text-slate-500">{item.data}</span>
+                    </div>
+
+                    <h4 className="font-bold text-white text-base leading-snug">{item.titulo}</h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">{item.descricao}</p>
+                  </div>
+
+                  <a
+                    href="https://discord.com/servers/bawmc-1317180458978639914"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 pt-2 border-t border-slate-800/60"
+                  >
+                    Ler no Discord <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Grade de Modos */}
         <div id="modos" className="space-y-4">
           <h3 className="text-xl font-bold flex items-center gap-2 text-white">
@@ -249,7 +351,7 @@ export default function Home() {
                   <p className="text-slate-400 text-sm mb-6">{modo.desc}</p>
                 </div>
                 <span className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
-                  Ver detalhes e rankings →
+                  Ver detalhes e informações →
                 </span>
               </Link>
             ))}
