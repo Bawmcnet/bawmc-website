@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: "semi-anarquia",
       nome: "Semi-Anarquia",
-      iconeUrl: "/icones/semianarquia.png", // Ajustado para bater com o nome do arquivo
+      iconeUrl: "/icones/semianarquia.png",
       corGlow: "from-red-500/20 via-red-500/10 to-transparent",
       corBorda: "border-red-500/40 hover:border-red-500",
       corTexto: "text-red-400",
@@ -191,7 +191,7 @@ export default function Home() {
       <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/B.png" alt="BAWMC Logo B" className="h-10 w-auto object-contain" />
+            <img src="/B.png" alt="BAWMC Logo B" className="h-10 w-10 rounded-xl object-cover" />
             <span className="text-xl font-black tracking-wider text-white">
               Baw<span className="text-cyan-400">MC</span>
             </span>
@@ -394,7 +394,7 @@ export default function Home() {
               key={modo.id}
               className="bg-[#0c1017] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-all group relative overflow-hidden"
             >
-              {/* Caixinha do ícone estilo loja (quadrada com glow e a imagem dentro) */}
+              {/* Caixinha do ícone estilo loja */}
               <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${modo.corGlow} border ${modo.corBorda} flex items-center justify-center shrink-0 shadow-lg relative p-2 group-hover:scale-105 transition-transform overflow-hidden`}>
                 <img
                   src={modo.iconeUrl}
@@ -531,7 +531,10 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
             <div className="max-w-md">
               <div className="flex items-center gap-3 mb-4">
-                <img src="/B.png" alt="BAWMC Logo B" className="h-8 w-auto object-contain" />
+                <img src="/B.png" alt="BAWMC Logo B" className="h-8 w-8 rounded-lg object-cover" />
+                <span className="text-lg font-black tracking-wider text-white">
+                  Baw<span className="text-cyan-400">MC</span>
+                </span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed mb-2">
                 Loja do servidor de Minecraft BawMC. Adquira VIPs, Gemas, Unbans e muito mais!
