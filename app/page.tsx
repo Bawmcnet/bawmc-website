@@ -41,7 +41,7 @@ interface Noticia {
   link: string;
 }
 
-// Notícias padrão (Fallback caso a API não retorne dados)
+// Notícias padrão (Fallback caso a API do Discord/servidor não retorne dados)
 const NOTICIAS_PADRAO: Noticia[] = [
   {
     id: "1",
@@ -62,7 +62,7 @@ const NOTICIAS_PADRAO: Noticia[] = [
   {
     id: "3",
     titulo: "Sistemas Survival & Economia Ativos",
-    conteudo: "O sistema de proteção por pá de ouro (/terreno), profissões (/jobs) e mercado de jogadores (/mercado) já estão funcionando perfeitamente!",
+    conteudo: "O sistema de proteção por pá de ouro (/terreno), mercado de jogadores (/mercado) e evento Gladiador já estão funcionando perfeitamente!",
     tag: "Atualização",
     data: "Recente",
     link: "https://discord.gg/bawmc"
@@ -73,7 +73,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [onlinePlayers, setOnlinePlayers] = useState<number | null>(null);
   const [isServerOnline, setIsServerOnline] = useState<boolean>(true);
-  const [activeModal, setActiveModal] = useState<"terrenos" | "regras" | null>(null);
+  const [activeModal, setActiveModal] = useState<"regras" | null>(null);
   const [selectedModo, setSelectedModo] = useState<ModoJogo | null>(null);
 
   // Notícias do Discord/API
@@ -82,7 +82,7 @@ export default function Home() {
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo
+  // Lista dos Modos de Jogo Atualizados
   const modosDeJogo: ModoJogo[] = [
     {
       id: "survival",
@@ -91,13 +91,13 @@ export default function Home() {
       corGlow: "from-amber-500/20 via-amber-500/10 to-transparent",
       corBorda: "border-amber-500/40 hover:border-amber-500",
       corTexto: "text-amber-400",
-      descricaoCurta: "Economia equilibrada, proteção de terrenos e empregos.",
-      descricaoCompleta: "O modo Survival do BawMC oferece uma experiência clássica aprimorada! Monte sua base com total segurança usando a pá de ouro, trabalhe em profissões (/jobs) para gerar dinheiro, e negocie seus itens no mercado entre jogadores.",
+      descricaoCurta: "Economia equilibrada, proteção de terrenos, kits e evento Gladiador.",
+      descricaoCompleta: "O modo Survival do BawMC oferece uma experiência clássica aprimorada! Monte sua base com total segurança usando a pá de ouro, evolua rapidamente com os kits de iniciante, negocie seus itens no mercado entre jogadores e dispute a glória nos eventos de PvP!",
       recursos: [
         "Proteção de terrenos fácil com a Pá de Ouro (/terreno)",
-        "Sistema de Empregos (/jobs) com evolução de nível",
         "Mercado livre entre jogadores (/mercado)",
-        "Mineração otimizada com geradores e conquistas"
+        "Evento Gladiador (PvP) todos os domingos (/gladiador)",
+        "Kit Iniciante gratuito e Kits Exclusivos de Ranks/VIPs (/kits)"
       ]
     },
     {
@@ -124,7 +124,7 @@ export default function Home() {
       corBorda: "border-rose-500/40 hover:border-rose-500",
       corTexto: "text-rose-400",
       descricaoCurta: "Roube corações ao eliminar jogadores nas arenas.",
-      descricaoCompleta: "Um modo de PvP de altísima tensão! A cada jogador que você elimina, você rouba 1 coração máximo dele. Se perder todos os seus corações, você ficará temporariamente fora de jogo até ser revivido com um item especial!",
+      descricaoCompleta: "Um modo de PvP de altíssima tensão! A cada jogador que você elimina, você rouba 1 coração máximo dele. Se perder todos os seus corações, você ficará temporariamente fora de jogo até ser revivido com um item especial!",
       recursos: [
         "Mecânica de roubo de vida por kill",
         "Criação de corações extras via crafting",
@@ -182,7 +182,7 @@ export default function Home() {
         setLoadingNoticias(false);
       })
       .catch((err) => {
-        console.error("Erro ao carregar notícias do servidor, usando fallback:", err);
+        console.error("Erro ao carregar notícias, carregando notícias padrão:", err);
         setNoticias(NOTICIAS_PADRAO);
         setLoadingNoticias(false);
       });
@@ -471,27 +471,19 @@ export default function Home() {
               🔑
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Registro de Conta</h3>
-            <p className="text-slate-400 text-xs leading-relaxed mb-4">
+            <p className="text-slate-400 text-xs leading-relaxed">
               Use <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/register senha senha</code> para criar sua conta e <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/login senha</code> ao entrar.
             </p>
           </div>
 
-          <div className="bg-[#0d121d] border border-white/5 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center text-emerald-400 font-bold mb-4 text-xl">
-                🏠
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Proteção de Terrenos</h3>
-              <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                Use <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/terreno</code> para pegar a pá de ouro e proteger suas construções.
-              </p>
+          <div className="bg-[#0d121d] border border-white/5 rounded-2xl p-6">
+            <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center text-emerald-400 font-bold mb-4 text-xl">
+              🏠
             </div>
-            <button
-              onClick={() => setActiveModal("terrenos")}
-              className="border border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-400 font-bold text-xs px-4 py-2.5 rounded-xl transition-all w-full text-center"
-            >
-              Ver Guia de Proteção ↓
-            </button>
+            <h3 className="text-lg font-bold text-white mb-2">Proteção de Terrenos</h3>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Use <code className="bg-black/50 text-cyan-400 px-1.5 py-0.5 rounded">/terreno</code> para pegar a pá de ouro e proteger suas construções.
+            </p>
           </div>
 
           <div className="bg-[#0d121d] border border-white/5 rounded-2xl p-6">
