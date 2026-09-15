@@ -23,7 +23,7 @@ import {
 interface ModoJogo {
   id: string;
   nome: string;
-  iconeUrl: string; // URL da imagem idêntica à loja
+  iconeUrl: string;
   corGlow: string;
   corBorda: string;
   corTexto: string;
@@ -41,6 +41,34 @@ interface Noticia {
   link: string;
 }
 
+// Notícias padrão (Fallback caso a API não retorne dados)
+const NOTICIAS_PADRAO: Noticia[] = [
+  {
+    id: "1",
+    titulo: "Lançamento do Novo Site Oficial!",
+    conteudo: "Seja bem-vindo ao portal do BawMC! Acompanhe por aqui e no nosso Discord as novidades, eventos e atualizações que estão por vir.",
+    tag: "Lançamento",
+    data: "Hoje",
+    link: "https://discord.gg/bawmc"
+  },
+  {
+    id: "2",
+    titulo: "Melhorias de Performance e Latência",
+    conteudo: "Otimizamos nossos servidores para garantir o menor ping possível, jogabilidade fluida e zero lag em todos os modos de jogo.",
+    tag: "Melhorias",
+    data: "Recente",
+    link: "https://discord.gg/bawmc"
+  },
+  {
+    id: "3",
+    titulo: "Sistemas Survival & Economia Ativos",
+    conteudo: "O sistema de proteção por pá de ouro (/terreno), profissões (/jobs) e mercado de jogadores (/mercado) já estão funcionando perfeitamente!",
+    tag: "Atualização",
+    data: "Recente",
+    link: "https://discord.gg/bawmc"
+  }
+];
+
 export default function Home() {
   const [copied, setCopied] = useState(false);
   const [onlinePlayers, setOnlinePlayers] = useState<number | null>(null);
@@ -54,7 +82,7 @@ export default function Home() {
 
   const SERVER_IP = "bawmc.net";
 
-  // Lista dos Modos de Jogo com as Imagens estilo Loja
+  // Lista dos Modos de Jogo
   const modosDeJogo: ModoJogo[] = [
     {
       id: "survival",
@@ -141,18 +169,21 @@ export default function Home() {
       });
   }, []);
 
-  // API de Notícias
+  // API de Notícias com Fallback
   useEffect(() => {
     fetch("/api/noticias")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
+        if (Array.isArray(data) && data.length > 0) {
           setNoticias(data);
+        } else {
+          setNoticias(NOTICIAS_PADRAO);
         }
         setLoadingNoticias(false);
       })
       .catch((err) => {
-        console.error("Erro ao carregar notícias:", err);
+        console.error("Erro ao carregar notícias do servidor, usando fallback:", err);
+        setNoticias(NOTICIAS_PADRAO);
         setLoadingNoticias(false);
       });
   }, []);
@@ -232,10 +263,10 @@ export default function Home() {
             
             <div className="lg:col-span-7 text-center lg:text-left">
               <span className="inline-block px-3.5 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
-                🎮 Servidor Oficial de Minecraft
+                🎮 Servidor de Minecraft
               </span>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
-                Servidor oficial do <span className="text-cyan-400">BawMC!</span>
+                Bem-vindo ao <span className="text-cyan-400">BawMC!</span>
               </h1>
               <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
                 O maior e mais eletrizante servidor do Brasil! Prepare-se para viver a sua melhor experiência no Minecraft com muita emoção, adrenalina e uma comunidade insana.
@@ -262,7 +293,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* LOGO PRINCIPAL COMPLETA */}
+            {/* LOGO PRINCIPAL */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative group flex justify-center items-center">
                 <div className="absolute inset-0 bg-cyan-500/25 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500 scale-110" />
@@ -379,7 +410,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* MODOS DE JOGO (IMAGENS ESTILO LOJA) */}
+      {/* MODOS DE JOGO */}
       <section id="modos" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="mb-10 text-center md:text-left">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center md:justify-start gap-3">
@@ -394,7 +425,6 @@ export default function Home() {
               key={modo.id}
               className="bg-[#0c1017] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-all group relative overflow-hidden"
             >
-              {/* Caixinha do ícone estilo loja */}
               <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${modo.corGlow} border ${modo.corBorda} flex items-center justify-center shrink-0 shadow-lg relative p-2 group-hover:scale-105 transition-transform overflow-hidden`}>
                 <img
                   src={modo.iconeUrl}
